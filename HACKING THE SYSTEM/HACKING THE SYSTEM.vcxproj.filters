@@ -15,8 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HACKING THE SYSTEM.cpp">
+    <ClCompile Include="HACKING THE SYSTEM.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
