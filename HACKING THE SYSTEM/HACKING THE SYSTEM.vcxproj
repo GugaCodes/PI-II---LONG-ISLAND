@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HACKING THE SYSTEM.c" />
+    <ClCompile Include="Telas.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
