@@ -9,8 +9,10 @@ int main() {
     //criando uma váriavel de controle de telas
 
     int tela = 0;
+    int height = 720, width = 1280;
 
     float pos_x = 150, pos_y = 450, pos_x1 = 450, pos_Y2 = 450;// posição da bolinha
+    float mouseX = width/2, mouseY = height / 2; // posição do meu mouse
 
     // inciciando biblioteca
     al_init();
@@ -21,7 +23,7 @@ int main() {
     al_init_image_addon();
 
 
-    ALLEGRO_DISPLAY* janela = al_create_display(1280, 720); /// criação da janela
+    ALLEGRO_DISPLAY* janela = al_create_display(width, height); /// criação da janela
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
@@ -58,6 +60,19 @@ int main() {
         else if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { // seta para baixo
             pos_y += 20;
         }
+        
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) { //Saber a posição do meu mouse
+            
+        }
+        else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+            mouseX = evento.mouse.x; // verifico a posição X
+            mouseY = evento.mouse.y; // Verifico a posição Y
+        }
+        if (evento.mouse.button & 1) {//ver se o botão está pressionado
+            tela = 2; // se verdade coloca tela 2   
+        }
+
 
         if (evento.keyboard.keycode == ALLEGRO_KEY_T) {
             tela = 2;
@@ -71,7 +86,7 @@ int main() {
         }
         if (tela == 2) { // tela 2 
            al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
-        al_draw_filled_circle(pos_x1, pos_Y2, 50, al_map_rgb(124, 200, 50));
+            al_draw_filled_circle(pos_x1, pos_Y2, 50, al_map_rgb(124, 200, 50));
         }
         
         
