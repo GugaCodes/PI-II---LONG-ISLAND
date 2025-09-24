@@ -27,8 +27,10 @@ int main() {
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0); // definindo "FPS"
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 30.0); // definindo "FPS"
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
+    ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
+    ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE_1.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -49,16 +51,30 @@ int main() {
 
         // andando com mouse
         else if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {// seta pra direita
-            pos_x += 20;
+            pos_x += 5;
         }
         else if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) { //seta para esquerda
-            pos_x -= 20;
+            pos_x -= 5;
         }
         else if (evento.keyboard.keycode == ALLEGRO_KEY_UP) { // Seta para cima
-            pos_y -= 20;
+            pos_y -= 5;
         }
         else if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { // seta para baixo
-            pos_y += 20;
+            pos_y += 5;
+        }
+
+        //delimitando bolinha ao tamanho da tela
+        if (pos_x >= 1280 - 25) {
+            pos_x = pos_x - 40;
+        }
+        else if (pos_x <= 0 + 25) {
+            pos_x = pos_x + 40;
+        }
+        else if (pos_y >= 720 - 25) {
+            pos_y = pos_y - 40;
+        }
+        else if (pos_y <= 0 + 25) {
+            pos_y = pos_y + 40;
         }
         
 
@@ -75,19 +91,29 @@ int main() {
 
 
         if (evento.keyboard.keycode == ALLEGRO_KEY_T) {
-            tela = 2;
+            tela = 1;
         }
         else if (evento.keyboard.keycode == ALLEGRO_KEY_R) {
             tela = 0;
+        }
+        else if (evento.keyboard.keycode == ALLEGRO_KEY_Y) {
+            tela = 2;
         }
 
         if (tela == 0) { // tela inicial do jogo
             al_draw_bitmap(tela_inicial, 0, 0, 0);
         }
-        if (tela == 2) { // tela 2 
+        if (tela == 1) { // tela 2 
            al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
-            al_draw_filled_circle(pos_x1, pos_Y2, 50, al_map_rgb(124, 200, 50));
+           al_draw_bitmap(tela_fases, 0, 0, 0);
         }
+        if (tela == 2) { // tela da fase 1
+            al_draw_bitmap(fase_1, 0, 0, 0);
+            al_draw_filled_circle(pos_x, pos_y, 10, al_map_rgb(0, 0, 255));
+        }
+       
+        
+        
         
         
         
@@ -100,6 +126,8 @@ int main() {
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_bitmap(tela_inicial);
+    al_destroy_bitmap(tela_fases);
+    al_destroy_bitmap(fase_1);
 
     return 0;
 }
