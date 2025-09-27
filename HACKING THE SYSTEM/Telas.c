@@ -79,14 +79,16 @@ int main() {
         
 
         if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) { //Saber a posição do meu mouse
-            
-        }
-        else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
             mouseX = evento.mouse.x; // verifico a posição X
             mouseY = evento.mouse.y; // Verifico a posição Y
         }
-        if (evento.mouse.button & 1) {//ver se o botão está pressionado
-            tela = 2; // se verdade coloca tela 2   
+        else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+            if (evento.mouse.button & 1) {
+                tela ++;
+            }
+            else if (evento.mouse.button & 2) {
+                tela--;
+            }
         }
 
 
