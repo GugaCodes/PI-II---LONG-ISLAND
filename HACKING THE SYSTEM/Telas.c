@@ -4,6 +4,11 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
+struct botão {
+    int btn_x1, btn_x2, btn_y1, btn_y2;
+    int btn2_x1, btn2_x2, btn2_y1, btn2_y2;
+};
+
 int main() {
 
     //criando uma váriavel de controle de telas
@@ -12,7 +17,26 @@ int main() {
     int height = 720, width = 1280;
 
     float pos_x = 150, pos_y = 450, pos_x1 = 450, pos_Y2 = 450;// posição da bolinha
-    float mouseX = width/2, mouseY = height / 2; // posição do meu mouse
+
+    // VARIAVEIS DO MOUSE
+    float mouseX, mouseY;
+
+    //CRIANDO AS STRICT DO BOTÃO PRNCIPAL
+    
+    struct botão menu;
+
+    //BOTÃO JOGAR
+    menu.btn_x1 = 550;
+    menu.btn_x2 = 980;
+    menu.btn_y1 = 450;
+    menu.btn_y2 = 525;
+
+    //BOTÃO SAIR
+
+    menu.btn2_x1 = 550;
+    menu.btn2_x2 = 980;
+    menu.btn2_y1 = 610;
+    menu.btn2_y2 = 680;
 
     // inciciando biblioteca
     al_init();
@@ -49,44 +73,18 @@ int main() {
             break;
         }
 
-        // andando com mouse
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {// seta pra direita
-            pos_x += 5;
-        }
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) { //seta para esquerda
-            pos_x -= 5;
-        }
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_UP) { // Seta para cima
-            pos_y -= 5;
-        }
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { // seta para baixo
-            pos_y += 5;
-        }
+ 
 
-        //delimitando bolinha ao tamanho da tela
-        if (pos_x >= 1280 - 25) {
-            pos_x = pos_x - 40;
-        }
-        else if (pos_x <= 0 + 25) {
-            pos_x = pos_x + 40;
-        }
-        else if (pos_y >= 720 - 25) {
-            pos_y = pos_y - 40;
-        }
-        else if (pos_y <= 0 + 25) {
-            pos_y = pos_y + 40;
-        }
-        
 
         if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) { //Saber a posição do meu mouse
             mouseX = evento.mouse.x; // verifico a posição X
             mouseY = evento.mouse.y; // Verifico a posição Y
         }
         else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-            if (evento.mouse.button & 1) {
-                tela ++;
-            }
-            else if (evento.mouse.button & 2) {
+            //if (evento.mouse.button & 1) {
+               // tela++;
+           // }
+            if (evento.mouse.button & 2) {
                 tela--;
             }
         }
@@ -102,23 +100,46 @@ int main() {
             tela = 2;
         }
 
-        if (tela == 0) { // tela inicial do jogo
+        // tela inicial do jogo
+        if (tela == 0) {
             al_draw_bitmap(tela_inicial, 0, 0, 0);
+            //al_draw_filled_rectangle(menu.btn_x1, menu.btn_y1, menu.btn_x2, menu.btn_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= menu.btn_x1 && mouseX <= menu.btn_x2 && mouseY >= menu.btn_y1 && mouseY <= menu.btn_y2) { tela++; }
+                if (mouseX >= menu.btn2_x1 && mouseX <= menu.btn2_x2 && mouseY >= menu.btn2_y1 && mouseY <= menu.btn2_y2) { break; }
+            }
         }
-        if (tela == 1) { // tela 2 
-           al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
-           al_draw_bitmap(tela_fases, 0, 0, 0);
+
+
+        // tela 2 
+        if (tela == 1) {
+            al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
+            al_draw_bitmap(tela_fases, 0, 0, 0);
         }
-        if (tela == 2) { // tela da fase 1
+        // tela da fase 1
+        if (tela == 2) { 
             al_draw_bitmap(fase_1, 0, 0, 0);
             al_draw_filled_circle(pos_x, pos_y, 10, al_map_rgb(0, 0, 255));
+
+            //delimitando bolinha ao tamanho da tela
+            if (pos_x >= 1280 - 25) { pos_x = pos_x - 40; }
+            if (pos_x <= 0 + 25) { pos_x = pos_x + 40; }
+            if (pos_y >= 720 - 25) { pos_y = pos_y - 40; }
+            if (pos_y <= 0 + 25) { pos_y = pos_y + 40; }
+
+
+            // andando com mouse
+            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {pos_x += 5;}// seta pra direita
+            if(evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {pos_x -= 5;}//seta para esquerda
+            if(evento.keyboard.keycode == ALLEGRO_KEY_UP) {pos_y -= 5;}// Seta para cima
+            if(evento.keyboard.keycode == ALLEGRO_KEY_DOWN) {pos_y += 5;}// seta para baixo
         }
-       
-        
-        
-        
-        
-        
+
+
+
+
+
+
         al_flip_display();
 
     }
