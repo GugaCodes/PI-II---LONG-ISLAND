@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HACKING THE SYSTEM.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Telas.c">
+    <ClCompile Include="main.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>

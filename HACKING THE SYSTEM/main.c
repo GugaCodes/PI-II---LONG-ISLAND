@@ -38,6 +38,23 @@ int main() {
     menu.btn2_y1 = 610;
     menu.btn2_y2 = 680;
 
+    //CRIANDO A STRUCT DOS BOTÕES NA TELA DE FASES
+
+    struct botão tela_fase;
+
+    //BOTÃO VOLTAR
+
+    tela_fase.btn_x1 = 100;
+    tela_fase.btn_x2 = 420;
+    tela_fase.btn_y1 = 630;
+    tela_fase.btn_y2 = 705;
+
+    tela_fase.btn2_x1 = 65;
+    tela_fase.btn2_x2 = 440;
+    tela_fase.btn2_y1 = 180;
+    tela_fase.btn2_y2 = 625;
+
+
     // inciciando biblioteca
     al_init();
     al_init_font_addon();
@@ -54,7 +71,7 @@ int main() {
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 30.0); // definindo "FPS"
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
-    ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE_1.png");
+    ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -111,15 +128,28 @@ int main() {
         }
 
 
-        // tela 2 
+        // TELA DO MENU DE FASES
         if (tela == 1) {
             al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
             al_draw_bitmap(tela_fases, 0, 0, 0);
+            //al_draw_filled_rectangle(tela_fase.btn2_x1, tela_fase.btn2_y1, tela_fase.btn2_x2, tela_fase.btn2_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) { tela--; }
+                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { tela++; }
+            }
         }
-        // tela da fase 1
+
+
+        // TELA DA FASE
         if (tela == 2) { 
             al_draw_bitmap(fase_1, 0, 0, 0);
             al_draw_filled_circle(pos_x, pos_y, 10, al_map_rgb(0, 0, 255));
+
+            // andando com mouse
+            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {pos_x += 5;}// seta pra direita
+            if(evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {pos_x -= 5;}//seta para esquerda
+            if(evento.keyboard.keycode == ALLEGRO_KEY_UP) {pos_y -= 5;}// Seta para cima
+            if(evento.keyboard.keycode == ALLEGRO_KEY_DOWN) {pos_y += 5;}// seta para baixo
 
             //delimitando bolinha ao tamanho da tela
             if (pos_x >= 1280 - 25) { pos_x = pos_x - 40; }
@@ -128,16 +158,7 @@ int main() {
             if (pos_y <= 0 + 25) { pos_y = pos_y + 40; }
 
 
-            // andando com mouse
-            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {pos_x += 5;}// seta pra direita
-            if(evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {pos_x -= 5;}//seta para esquerda
-            if(evento.keyboard.keycode == ALLEGRO_KEY_UP) {pos_y -= 5;}// Seta para cima
-            if(evento.keyboard.keycode == ALLEGRO_KEY_DOWN) {pos_y += 5;}// seta para baixo
         }
-
-
-
-
 
 
         al_flip_display();
