@@ -230,18 +230,15 @@ int main() {
                
             //SE CHEGAR NA PORTA PASSA DE TELA
             //al_draw_filled_rectangle(fase1.esp_x1, fase1.esp_y1, fase1.esp_x2, fase1.esp_y2, al_map_rgb(248, 320, 124));
-            if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela = 4; }
-            if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela = 3; }
+            if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela ++; }
+            if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela = 7; }
         }
 
-        //DESENHANDO TELA DO LIVRO COM ENIGMA 1
-        if (tela == 3) {
-            al_draw_bitmap(livro1, 0, 0, 0);
-        }
+        
         
         // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE
 
-        if (tela == 4) {
+        if (tela == 3) {
             al_clear_to_color(al_map_rgb(0, 125, 125));
             al_draw_bitmap(fase_concluida, 0, 0, 0);
             //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
@@ -252,7 +249,7 @@ int main() {
         }
 
         // TELA DE FASES COM A SEGUNDA FASE DESBLOQUEADA
-        if (tela == 5) {
+        if (tela == 4) {
             al_clear_to_color(al_map_rgb(0, 125, 125));
             al_draw_bitmap(tela_fases_2, 0, 0, 0);
             //al_draw_filled_rectangle(tela_fase2.btn_x1, tela_fase2.btn_y1, tela_fase2.btn_x2, tela_fase2.btn_y2, al_map_rgb(255, 154, 32));
@@ -262,9 +259,14 @@ int main() {
 
             }
         }
-        if (tela == 6) {
+        if (tela == 5) {
             al_clear_to_color(al_map_rgb(0, 125, 125));
             
+        }
+
+        //DESENHANDO TELA DO LIVRO COM ENIGMA 1
+        if (tela == 7) {
+            al_draw_bitmap(livro1, 0, 0, 0);
         }
         
 
