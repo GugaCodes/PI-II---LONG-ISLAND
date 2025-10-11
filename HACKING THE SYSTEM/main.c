@@ -11,6 +11,7 @@ struct botão {
 
 struct espaço {
     int esp_x1, esp_x2, esp_y1, esp_y2;
+	int erro_x1, erro_x2, erro_y1, erro_y2;
 };
 
 int main() {
@@ -107,6 +108,12 @@ int main() {
     fase1.esp_y2 = 720;
 
 
+    fase1.erro_x1 = 120;
+    fase1.erro_x2 = 210;
+    fase1.erro_y1 = 330;
+    fase1.erro_y2 = 370;
+
+
 
     // inciciando biblioteca
     al_init();
@@ -127,6 +134,7 @@ int main() {
     ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
     ALLEGRO_BITMAP* tela_fases_2 = al_load_bitmap("TELA-FASES-2.png");
     ALLEGRO_BITMAP* fase_concluida = al_load_bitmap("CONGRATULATIONS.png");
+    ALLEGRO_BITMAP* mensagem_erro = al_load_bitmap("MENS_ERRO.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -217,6 +225,11 @@ int main() {
             //al_draw_filled_rectangle(fase1.esp_x1, fase1.esp_y1, fase1.esp_x2, fase1.esp_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela++; }
 
+			// SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR P, APARECE TELA DE ERRO
+            //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
+            if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_P) { tela = 6; }
+
+
         }
         // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE
 
@@ -244,8 +257,15 @@ int main() {
         if (tela == 5) {
             al_clear_to_color(al_map_rgb(0, 125, 125));
         }
-        
 
+		///TELA DE MENSAGEM DE ERRO
+        if (tela == 6) {
+            al_draw_bitmap(mensagem_erro, 0, 0, 0);
+       
+        
+        } 
+
+        
 
         al_flip_display();
 
@@ -260,6 +280,7 @@ int main() {
     al_destroy_bitmap(fase_1);
     al_destroy_bitmap(tela_fases_2);
     al_destroy_bitmap(fase_concluida);
+	al_destroy_bitmap(mensagem_erro);
     
 
     return 0;
