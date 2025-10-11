@@ -7,6 +7,8 @@
 struct botão {
     int btn_x1, btn_x2, btn_y1, btn_y2;
     int btn2_x1, btn2_x2, btn2_y1, btn2_y2;
+	int btn3_x1, btn3_x2, btn3_y1, btn3_y2;
+	int btn4_x1, btn4_x2, btn4_y1, btn4_y2;
 };
 
 struct espaço {
@@ -47,6 +49,19 @@ int main() {
     menu.btn2_x2 = 980;
     menu.btn2_y1 = 610;
     menu.btn2_y2 = 680;
+
+    //BOTÃO VOLTAR AO MENU PRINCIPAL TELA ERRO
+
+    menu.btn3_x1 = 250;
+    menu.btn3_x2 = 1031;
+    menu.btn3_y1 = 510;
+    menu.btn3_y2 = 580;
+
+	menu.btn4_x1 = 250;
+	menu.btn4_x2 = 1031;
+	menu.btn4_y1 = 415;
+	menu.btn4_y2 = 485;
+
 
     //CRIANDO A STRUCT DOS BOTÕES NA TELA DE FASES
 
@@ -229,8 +244,8 @@ int main() {
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
             if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_P) { tela = 6; }
 
-
         }
+
         // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE
 
         if (tela == 3) {
@@ -261,8 +276,13 @@ int main() {
 		///TELA DE MENSAGEM DE ERRO
         if (tela == 6) {
             al_draw_bitmap(mensagem_erro, 0, 0, 0);
+            //al_draw_filled_rectangle(menu.btn3_x1, menu.btn3_y1, menu.btn3_x2, menu.btn3_y2, al_map_rgb(255, 154, 32));
+            //al_draw_filled_rectangle(menu.btn4_x1, menu.btn4_y1, menu.btn4_x2, menu.btn4_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                //if (mouseX >= menu.btn4_x1 && mouseX <= menu.btn4_x2 && mouseY >= menu.btn4_y1 && mouseY <= menu.btn4_y2) { tela = 1; }
+                if (mouseX >= menu.btn3_x1 && mouseX <= menu.btn3_x2 && mouseY >= menu.btn3_y1 && mouseY <= menu.btn3_y2) { tela = 0; }
+            }
        
-        
         } 
 
         
