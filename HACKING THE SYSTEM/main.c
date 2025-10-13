@@ -15,6 +15,9 @@ struct espaco {
     int esp_x1, esp_x2, esp_y1, esp_y2;
     int erro_x1, erro_x2, erro_y1, erro_y2;
     int livro1_x1, livro1_x2, livro1_y1, livro1_y2;
+    int livro2_x1, livro2_x2, livro2_y1, livro2_y2;
+    int livro3_x1, livro3_x2, livro3_y1, livro3_y2;
+    int comp_x1, comp_x2, comp_y1, comp_y2;
 };
 
 int main() {
@@ -93,6 +96,17 @@ int main() {
     tela_fase2.btn_y1 = 180;
     tela_fase2.btn_y2 = 625;
 
+    //CRIANDO STRUCT PARA IR PARA FASE 3
+
+    struct botao tela_fase3;
+
+    tela_fase3.btn_x1 = 820;
+    tela_fase3.btn_x2 = 1180;
+    tela_fase3.btn_y1 = 180;
+    tela_fase3.btn_y2 = 625;
+
+    
+
     //STRUCT PARA TELA DE PROXIMA FASE
 
     struct botao prox_fase;
@@ -123,14 +137,37 @@ int main() {
     fase1.esp_y1 = 660;
     fase1.esp_y2 = 720;
 
+
+    // ESTANTE COM LIVRO 1
     fase1.livro1_x1 = 230;
     fase1.livro1_x2 = 325;
     fase1.livro1_y1 = 615;
     fase1.livro1_y2 = 695;
 
+    // ESTANTE COM LIVRO 2
+
+    fase1.livro2_x1 = 230;
+    fase1.livro2_x2 = 325;
+    fase1.livro2_y1 = 220;
+    fase1.livro2_y2 = 300;
+
+    // MESA COM LIVRO 3
+    
+    fase1.livro3_x1 = 420;
+    fase1.livro3_x2 = 535;
+    fase1.livro3_y1 = 330;
+    fase1.livro3_y2 = 400;
+
+    //MESA COM COMPUTADOR
+
+    fase1.comp_x1 = 1000;
+    fase1.comp_x2 = 1120;
+    fase1.comp_y1 = 290;
+    fase1.comp_y2 = 350;
 
 
 
+    //ATALHO PARA TELA DE ERRO
     fase1.erro_x1 = 120;
     fase1.erro_x2 = 210;
     fase1.erro_y1 = 330;
@@ -155,10 +192,18 @@ int main() {
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
     ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
+    ALLEGRO_BITMAP* fase_2 = al_load_bitmap("TELA_FASE2.png");
     ALLEGRO_BITMAP* tela_fases_2 = al_load_bitmap("TELA-FASES-2.png");
+    ALLEGRO_BITMAP* tela_fases_3 = al_load_bitmap("TELA-FASES-3.png");
     ALLEGRO_BITMAP* fase_concluida = al_load_bitmap("CONGRATULATIONS.png");
     ALLEGRO_BITMAP* mensagem_erro = al_load_bitmap("MENS_ERRO.png");
     ALLEGRO_BITMAP* livro1 = al_load_bitmap("LIVRO1.png");
+    ALLEGRO_BITMAP* livro2 = al_load_bitmap("LIVRO2.png");
+    ALLEGRO_BITMAP* livro3 = al_load_bitmap("LIVRO3.png");
+    ALLEGRO_BITMAP* guanabara_fase1 = al_load_bitmap("GAFANHOTO1.png");
+    ALLEGRO_BITMAP* tela_senha = al_load_bitmap("TELA_SENHA.png");
+    ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
+    ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -223,7 +268,7 @@ int main() {
             //al_draw_filled_rectangle(tela_fase.btn2_x1, tela_fase.btn2_y1, tela_fase.btn2_x2, tela_fase.btn2_y2, al_map_rgb(255, 154, 32));
             if (evento.mouse.button & 1) {
                 if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) { tela--; }
-                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { tela++; }
+                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { tela = 10;}
             }
         }
 
@@ -247,20 +292,39 @@ int main() {
             if (pos_y <= 0 + 25) { pos_y = pos_y + 40; }
 
             //SE CHEGAR NA ESTANTE 1 E ABRIR O LIVRO
-            if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) {
-                tela = 3;
+            if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
+                tela = 7;
             }
+
+            //SE CHAGAR NA ESTANTE 2 E ABRIR O LIVRO
+            
+            if (pos_x >= fase1.livro2_x1 && pos_x <= fase1.livro2_x2 && pos_y >= fase1.livro2_y1 && pos_y <= fase1.livro2_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
+                tela = 8;
+            }
+
+            //SE CHEGAR NA ESTANTE ABRE O LIVRO 3
+            
+            if (pos_x >= fase1.livro3_x1 && pos_x <= fase1.livro3_x2 && pos_y >= fase1.livro3_y1 && pos_y <= fase1.livro3_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
+                tela = 9;
+            }
+
+            //SE CHEGAR NO COMPUTADOR, APARECE TELA DE SENHA
+            //al_draw_filled_rectangle(fase1.comp_x1, fase1.comp_y1, fase1.comp_x2, fase1.comp_y2, al_map_rgb(248, 320, 124));
+            if (pos_x >= fase1.comp_x1 && pos_x <= fase1.comp_x2 && pos_y >= fase1.comp_y1 && pos_y <= fase1.comp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
+                tela = 11;
+            }
+
 
             //SE CHEGAR NA PORTA PASSA DE TELA
             //al_draw_filled_rectangle(fase1.esp_x1, fase1.esp_y1, fase1.esp_x2, fase1.esp_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela++; }
 
-            // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR P, APARECE TELA DE ERRO
+            // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
-            if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela++; }
-            if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_F) { tela = 7; }
-            if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_P) { tela = 6; }
+            if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela = 6; }
+            
 
+            
         }
 
         
@@ -274,7 +338,7 @@ int main() {
         al_draw_bitmap(fase_concluida, 0, 0, 0);
         //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
         if (evento.mouse.button & 1) {
-            if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) { tela++; }
+            if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) { tela ++; }
             if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) { tela = 0; }
         }
     }
@@ -285,22 +349,22 @@ int main() {
         al_draw_bitmap(tela_fases_2, 0, 0, 0);
         //al_draw_filled_rectangle(tela_fase2.btn_x1, tela_fase2.btn_y1, tela_fase2.btn_x2, tela_fase2.btn_y2, al_map_rgb(255, 154, 32));
         if (evento.mouse.button & 1) {
-            if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) { tela++; }
+            if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) { tela = 12; }
             if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) { tela = 0; }
+            if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { tela = 2; }
 
         }
     }
+
+    // TELA COM A FASE 2
     if (tela == 5) {
         al_clear_to_color(al_map_rgb(0, 125, 125));
+        al_draw_bitmap(fase_2, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
+            tela = 13;
+        }
 
     }
-
-    //DESENHANDO TELA DO LIVRO COM ENIGMA 1
-    if (tela == 7) {
-        al_draw_bitmap(livro1, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_E) { tela = 1; }
-    }
-
     ///TELA DE MENSAGEM DE ERRO
     if (tela == 6) {
         al_draw_bitmap(mensagem_erro, 0, 0, 0);
@@ -311,7 +375,94 @@ int main() {
             if (mouseX >= menu.btn3_x1 && mouseX <= menu.btn3_x2 && mouseY >= menu.btn3_y1 && mouseY <= menu.btn3_y2) { tela = 0; }
         }
 
+
     }
+
+    //DESENHANDO TELA DO LIVRO COM ENIGMA 1
+    if (tela == 7) {
+        al_draw_bitmap(livro1, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+    }
+
+    //DESENHANDO TELA DO LIVRO COM ENIGMA 2;
+    if (tela == 8) {
+        al_draw_bitmap(livro2, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+    }
+
+    //DESENHANDO TELA DO LIVRO COM ENIGMA 3
+
+    if (tela == 9) {
+        al_draw_bitmap(livro3, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+    }
+
+    // TELA COM GUANABARA NA FASE 1
+    if (tela == 10) {
+        al_draw_bitmap(guanabara_fase1, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+            tela = 2;
+        }
+    }
+
+    //TELA DO COMPUTADOR COM A SENHA
+
+    if (tela == 11) {
+        al_draw_bitmap(tela_senha, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 2;
+        }
+    }
+    // TELA DE FASE COM GUANABARA 2
+
+    if (tela == 12) {
+        al_draw_bitmap(guanabara_fase2,0,0,0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+            tela = 5;
+        }
+    }
+
+    //TELA DE FASE COM O GUANABARA 3
+    if (tela == 16) {
+        al_draw_bitmap(guanabara_fase3, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+            tela = 15;
+        }
+    }
+
+    // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE - 2
+
+    if (tela == 13) {
+        al_clear_to_color(al_map_rgb(0, 125, 125));
+        al_draw_bitmap(fase_concluida, 0, 0, 0);
+        //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
+        if (evento.mouse.button & 1) {
+            if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) { tela = 14; }
+            if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) { tela = 0; }
+        }
+    }
+    //TELA COM A FASE 3 DESBLOQUEADA
+    if (tela == 14) {
+        al_clear_to_color(al_map_rgb(0,0,144));
+        al_draw_bitmap(tela_fases_3, 0, 0, 0);
+        //al_draw_filled_rectangle(tela_fase3.btn_x1, tela_fase3.btn_y1, tela_fase3.btn_x2, tela_fase3.btn_y2, al_map_rgb(255, 154, 32));
+        if (evento.mouse.button & 1) {
+            if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) { tela = 12; }
+            if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) { tela = 0; }
+            if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { tela = 2; }
+            if (mouseX >= tela_fase3.btn_x1 && mouseX <= tela_fase3.btn_x2 && mouseY >= tela_fase3.btn_y1 && mouseY <= tela_fase3.btn_y2) { tela = 16; }
+
+        }
+
+        
+        
+    }
+
+    //TELA COM A FASE 3
+    if (tela == 15) {
+        al_clear_to_color(al_map_rgb(148, 0, 144));
+    }
+
 
 
 
@@ -328,10 +479,18 @@ al_destroy_bitmap(tela_inicial);
 al_destroy_bitmap(tela_fases);
 al_destroy_bitmap(fase_1);
 al_destroy_bitmap(tela_fases_2);
+al_destroy_bitmap(tela_fases_3);
 al_destroy_bitmap(fase_concluida);
 al_destroy_bitmap(mensagem_erro);
 
 al_destroy_bitmap(livro1);
+al_destroy_bitmap(livro2);
+al_destroy_bitmap(livro3);
+al_destroy_bitmap(guanabara_fase1);
+al_destroy_bitmap(tela_senha);
+al_destroy_bitmap(guanabara_fase2);
+al_destroy_bitmap(guanabara_fase3);
+al_destroy_bitmap(fase_2);
 
 
 return 0;
