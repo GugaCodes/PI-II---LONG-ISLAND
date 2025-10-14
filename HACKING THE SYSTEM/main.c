@@ -31,6 +31,9 @@ int main() {
 
     float pos_x = 150, pos_y = 450, pos_x1 = 450, pos_Y2 = 450;
 
+	float frame = 0.f;
+    int current_frame_y = 0;
+
 
 
 
@@ -134,14 +137,14 @@ int main() {
 
     fase1.esp_x1 = 500;
     fase1.esp_x2 = 690;
-    fase1.esp_y1 = 660;
+    fase1.esp_y1 = 610;
     fase1.esp_y2 = 720;
 
 
     // ESTANTE COM LIVRO 1
     fase1.livro1_x1 = 230;
     fase1.livro1_x2 = 325;
-    fase1.livro1_y1 = 615;
+    fase1.livro1_y1 = 590;
     fase1.livro1_y2 = 695;
 
     // ESTANTE COM LIVRO 2
@@ -170,7 +173,7 @@ int main() {
     //ATALHO PARA TELA DE ERRO
     fase1.erro_x1 = 120;
     fase1.erro_x2 = 210;
-    fase1.erro_y1 = 330;
+    fase1.erro_y1 = 250;
     fase1.erro_y2 = 370;
 
 
@@ -205,6 +208,7 @@ int main() {
     ALLEGRO_BITMAP* tela_senha = al_load_bitmap("TELA_SENHA.png");
     ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
     ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
+	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -222,6 +226,11 @@ int main() {
         if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             break;
         }
+
+        frame += 0.0f;
+        if(frame > 4) {
+            frame -= 4;
+		}
 
 
 
@@ -277,20 +286,32 @@ int main() {
         // TELA DA FASE 1
         if (tela == 2) {
             al_draw_bitmap(fase_1, 0, 0, 0);
-            al_draw_filled_circle(pos_x, pos_y, 10, al_map_rgb(0, 0, 255));
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
+			al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
             // andando com mouse
-            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) { pos_x += 5; }// seta pra direita
-            if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) { pos_x -= 5; }//seta para esquerda
-            if (evento.keyboard.keycode == ALLEGRO_KEY_UP) { pos_y -= 5; }// Seta para cima
-            if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { pos_y += 5; }// seta para baixo
+            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
+                frame += 0.3f;
+                current_frame_y = 77 * 2;
+                pos_x += 4; }// seta pra direita
+            if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {
+                frame += 0.3f;
+                current_frame_y = 75;
+                pos_x -= 4; }//seta para esquerda
+            if (evento.keyboard.keycode == ALLEGRO_KEY_UP) {
+                frame += 0.3f;
+                current_frame_y = 78 * 4;
+                pos_y -= 4; }// Seta para cima
+            if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { 
+                frame += 0.3f;
+                current_frame_y = 0;
+                pos_y += 4; }// seta para baixo
 
             //delimitando bolinha ao tamanho da tela
-            if (pos_x >= 1280 - 25) { pos_x = pos_x - 40; }
-            if (pos_x <= 0 + 25) { pos_x = pos_x + 40; }
-            if (pos_y >= 720 - 25) { pos_y = pos_y - 40; }
-            if (pos_y <= 0 + 25) { pos_y = pos_y + 40; }
+            if (pos_x >= 1280 - 55) { pos_x = pos_x - 10; }
+            if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
+            if (pos_y >= 720 - 35) { pos_y = pos_y - 10; }
+            if (pos_y <= 0 + 150) { pos_y = pos_y + 10; }
 
             //SE CHEGAR NA ESTANTE 1 E ABRIR O LIVRO
             if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
@@ -494,6 +515,8 @@ al_destroy_bitmap(tela_fases_2);
 al_destroy_bitmap(tela_fases_3);
 al_destroy_bitmap(fase_concluida);
 al_destroy_bitmap(mensagem_erro);
+al_destroy_bitmap(sprite);
+
 
 al_destroy_bitmap(livro1);
 al_destroy_bitmap(livro2);
