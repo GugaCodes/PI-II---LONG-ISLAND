@@ -193,6 +193,7 @@ int main() {
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
     ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
     ALLEGRO_BITMAP* fase_2 = al_load_bitmap("TELA_FASE2.png");
+    ALLEGRO_BITMAP* tela_final = al_load_bitmap("TELA_FINAL.png");
     ALLEGRO_BITMAP* tela_fases_2 = al_load_bitmap("TELA-FASES-2.png");
     ALLEGRO_BITMAP* tela_fases_3 = al_load_bitmap("TELA-FASES-3.png");
     ALLEGRO_BITMAP* fase_concluida = al_load_bitmap("CONGRATULATIONS.png");
@@ -422,13 +423,6 @@ int main() {
         }
     }
 
-    //TELA DE FASE COM O GUANABARA 3
-    if (tela == 16) {
-        al_draw_bitmap(guanabara_fase3, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-            tela = 15;
-        }
-    }
 
     // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE - 2
 
@@ -461,7 +455,24 @@ int main() {
     //TELA COM A FASE 3
     if (tela == 15) {
         al_clear_to_color(al_map_rgb(148, 0, 144));
+        if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
+            tela = 17;
+        }
     }
+
+    //TELA DE FASE COM O GUANABARA 3
+    if (tela == 16) {
+        al_draw_bitmap(guanabara_fase3, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+            tela = 15;
+        }
+    }
+    //TELA FINAL
+
+    if (tela == 17) {
+        al_draw_bitmap(tela_final, 0, 0, 0);
+    }
+
 
 
 
@@ -477,6 +488,7 @@ al_destroy_display(janela);
 al_destroy_event_queue(fila_eventos);
 al_destroy_bitmap(tela_inicial);
 al_destroy_bitmap(tela_fases);
+al_destroy_bitmap(tela_final);
 al_destroy_bitmap(fase_1);
 al_destroy_bitmap(tela_fases_2);
 al_destroy_bitmap(tela_fases_3);
