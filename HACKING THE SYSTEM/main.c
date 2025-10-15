@@ -144,7 +144,7 @@ int main() {
     // ESTANTE COM LIVRO 1
     fase1.livro1_x1 = 230;
     fase1.livro1_x2 = 325;
-    fase1.livro1_y1 = 550;
+    fase1.livro1_y1 = 520;
     fase1.livro1_y2 = 695;
 
     // ESTANTE COM LIVRO 2
@@ -152,20 +152,20 @@ int main() {
     fase1.livro2_x1 = 230;
     fase1.livro2_x2 = 330;
     fase1.livro2_y1 = 150;
-    fase1.livro2_y2 = 260;
+    fase1.livro2_y2 = 270;
 
     // MESA COM LIVRO 3
     
     fase1.livro3_x1 = 430;
     fase1.livro3_x2 = 550;
-    fase1.livro3_y1 = 280;
+    fase1.livro3_y1 = 240;
     fase1.livro3_y2 = 400;
 
     //MESA COM COMPUTADOR
 
     fase1.comp_x1 = 1000;
     fase1.comp_x2 = 1120;
-    fase1.comp_y1 = 290;
+    fase1.comp_y1 = 210;
     fase1.comp_y2 = 350;
 
 
