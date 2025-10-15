@@ -144,21 +144,21 @@ int main() {
     // ESTANTE COM LIVRO 1
     fase1.livro1_x1 = 230;
     fase1.livro1_x2 = 325;
-    fase1.livro1_y1 = 590;
+    fase1.livro1_y1 = 550;
     fase1.livro1_y2 = 695;
 
     // ESTANTE COM LIVRO 2
 
     fase1.livro2_x1 = 230;
-    fase1.livro2_x2 = 325;
-    fase1.livro2_y1 = 220;
-    fase1.livro2_y2 = 300;
+    fase1.livro2_x2 = 330;
+    fase1.livro2_y1 = 150;
+    fase1.livro2_y2 = 260;
 
     // MESA COM LIVRO 3
     
-    fase1.livro3_x1 = 420;
-    fase1.livro3_x2 = 535;
-    fase1.livro3_y1 = 330;
+    fase1.livro3_x1 = 430;
+    fase1.livro3_x2 = 550;
+    fase1.livro3_y1 = 280;
     fase1.livro3_y2 = 400;
 
     //MESA COM COMPUTADOR
@@ -311,22 +311,23 @@ int main() {
             //delimitando bolinha ao tamanho da tela
             if (pos_x >= 1280 - 55) { pos_x = pos_x - 10; }
             if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
-            if (pos_y >= 720 - 35) { pos_y = pos_y - 10; }
+            if (pos_y >= 720 - 75) { pos_y = pos_y - 10; }
             if (pos_y <= 0 + 150) { pos_y = pos_y + 10; }
 
             //SE CHEGAR NA ESTANTE 1 E ABRIR O LIVRO
+            //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.livro1_x1 && pos_x <= fase1.livro1_x2 && pos_y >= fase1.livro1_y1 && pos_y <= fase1.livro1_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
                 tela = 7;
             }
 
             //SE CHAGAR NA ESTANTE 2 E ABRIR O LIVRO
-            
+            //al_draw_filled_rectangle(fase1.livro2_x1, fase1.livro2_y1, fase1.livro2_x2, fase1.livro2_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.livro2_x1 && pos_x <= fase1.livro2_x2 && pos_y >= fase1.livro2_y1 && pos_y <= fase1.livro2_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
                 tela = 8;
             }
 
             //SE CHEGAR NA ESTANTE ABRE O LIVRO 3
-            
+            //al_draw_filled_rectangle(fase1.livro3_x1, fase1.livro3_y1, fase1.livro3_x2, fase1.livro3_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.livro3_x1 && pos_x <= fase1.livro3_x2 && pos_y >= fase1.livro3_y1 && pos_y <= fase1.livro3_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
                 tela = 9;
             }
