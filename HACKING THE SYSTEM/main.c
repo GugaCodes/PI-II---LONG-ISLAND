@@ -428,6 +428,7 @@ int main() {
             //if (mouseX >= menu.btn4_x1 && mouseX <= menu.btn4_x2 && mouseY >= menu.btn4_y1 && mouseY <= menu.btn4_y2) { tela = 1; }
             if (mouseX >= menu.btn3_x1 && mouseX <= menu.btn3_x2 && mouseY >= menu.btn3_y1 && mouseY <= menu.btn3_y2) { tela = 0; }
         }
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
 
 
     }
