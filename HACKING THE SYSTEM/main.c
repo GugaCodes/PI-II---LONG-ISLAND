@@ -195,7 +195,7 @@ int main() {
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 30.0); // definindo "FPS"
+    ALLEGRO_TIMER* timer = al_create_timer(1.0); // definindo "FPS"
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
     ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
@@ -226,6 +226,10 @@ int main() {
     char resposta[50] = "";
     int pos = 0;
     int erro = 0;
+
+    int tempo_restante = 10 * 60;
+    int minutos = 1;
+    int segundos = 1;
 
     bool jogando = true;
     while (jogando) {
@@ -320,6 +324,23 @@ int main() {
             if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
             if (pos_y >= 720 - 75) { pos_y = pos_y - 10; }
             if (pos_y <= 0 + 150) { pos_y = pos_y + 10; }
+
+            /*
+            ============ SISTEMA DE TEMPO ================
+            */
+            
+
+            if (evento.type == ALLEGRO_EVENT_TIMER && evento.timer.source == timer) {
+                tempo_restante--; // diminui o tempo em 1 segundo
+
+                if (tempo_restante <= 0) {
+                    tela = 6; // mensagem de erro
+                }
+
+                minutos = tempo_restante / 60;
+                segundos = tempo_restante % 60;
+            }
+            al_draw_textf(font, al_map_rgb(255, 255, 0), 50, 50, ALLEGRO_ALIGN_CENTRE, "%02d:%02d", minutos, segundos);
 
             //SE CHEGAR NA ESTANTE 1 E ABRIR O LIVRO
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
