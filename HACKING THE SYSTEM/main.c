@@ -1,8 +1,11 @@
+#include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/keyboard.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 struct botao {
     int btn_x1, btn_x2, btn_y1, btn_y2;
@@ -176,6 +179,7 @@ int main() {
     fase1.erro_y1 = 250;
     fase1.erro_y2 = 370;
 
+   
 
 
     // inciciando biblioteca
@@ -218,7 +222,10 @@ int main() {
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_start_timer(timer);
 
-
+    //VARIAVEIS PARA JOGAR A FASE 1
+    char resposta[50] = "";
+    int pos = 0;
+    int erro = 0;
 
     bool jogando = true;
     while (jogando) {
@@ -336,13 +343,9 @@ int main() {
             //al_draw_filled_rectangle(fase1.comp_x1, fase1.comp_y1, fase1.comp_x2, fase1.comp_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.comp_x1 && pos_x <= fase1.comp_x2 && pos_y >= fase1.comp_y1 && pos_y <= fase1.comp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
                 tela = 11;
+
             }
-
-
-            //SE CHEGAR NA PORTA PASSA DE TELA
-            //al_draw_filled_rectangle(fase1.esp_x1, fase1.esp_y1, fase1.esp_x2, fase1.esp_y2, al_map_rgb(248, 320, 124));
-            if (pos_x >= fase1.esp_x1 && pos_x <= fase1.esp_x2 && pos_y >= fase1.esp_y1 && pos_y <= fase1.esp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela++; }
-
+         
             // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
             if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela = 6; }
@@ -460,14 +463,61 @@ int main() {
         }
     }
 
-    //TELA DO COMPUTADOR COM A SENHA
+    /*
+    ============== DESENHANDO A TELA DO COMUPTADOR COM A MECANICA ====================
+    */
 
     if (tela == 11) {
+
+        /*
+        ======= DESENHANDO A TELA ==========
+        */
         al_draw_bitmap(tela_senha, 0, 0, 0);
         if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
             tela = 2;
         }
+
+        /*
+        ======= CRIAÇÃO DA MECÂNICA DE RESPOSTAS =============
+        */
+        if (evento.type == ALLEGRO_EVENT_KEY_CHAR) {
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                printf("Resposta final: %s\n", resposta);
+                if (strcmp(resposta, "01") == 0) {
+                    tela = 3;
+                    pos = 0;
+                    resposta[0] = '\0';
+                    erro = 0;
+                }
+                else {
+                    pos = 0;
+                    resposta[0] = '\0';
+                    erro++;
+                }
+            }
+            else if (evento.keyboard.keycode == ALLEGRO_KEY_BACKSPACE && pos > 0) {
+                pos--;
+                resposta[pos] = '\0';
+                erro = 0;
+            }
+            else if (evento.keyboard.unichar >= 32 && evento.keyboard.unichar <= 126) {
+                resposta[pos++] = (char)evento.keyboard.unichar;
+                resposta[pos] = '\0';
+                erro = 0;
+                
+               
+            }
+        }
+
+        //PRINTANDO MENSAGEM DE ERRO
+        if (erro !=0) {
+            al_draw_textf(font, al_map_rgb(255, 0, 0), 851, 507, ALLEGRO_ALIGN_CENTRE, "RESPOSTA INCORRETA");
+        }
+        //PRINTANDO O TEXTO DIGITADO NA TELA
+        al_draw_textf(font, al_map_rgb(255, 255, 255), 851, 507, ALLEGRO_ALIGN_CENTRE, "%s", resposta);
     }
+
+
     // TELA DE FASE COM GUANABARA 2
 
     if (tela == 12) {
