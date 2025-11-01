@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "movimento.h"
+#include "delimitacao.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/keyboard.h>
@@ -231,6 +233,9 @@ int main() {
     int minutos = 1;
     int segundos = 1;
 
+    // CRIANDO UMA VÁRIAVEL DE VELOCIDADE PARA O PERSONGEM
+    int velocidade_personagem = 10;
+
     bool jogando = true;
     while (jogando) {
         ALLEGRO_EVENT evento; //criando(chamando) eventos
@@ -243,10 +248,6 @@ int main() {
         if(frame > 4) {
             frame -= 4;
 		}
-
-
-
-
         if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) { //Saber a posição do meu mouse
             mouseX = evento.mouse.x; // verifico a posição X
             mouseY = evento.mouse.y; // Verifico a posição Y
@@ -259,17 +260,6 @@ int main() {
                 //tela--;
             //}
         }
-
-
-       /* if (evento.keyboard.keycode == ALLEGRO_KEY_T) {
-            tela = 1;
-        }
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_R) {
-            tela = 0;
-        }
-        else if (evento.keyboard.keycode == ALLEGRO_KEY_Y) {
-            tela = 3;
-        }*/
 
         // tela inicial do jogo
         if (tela == 0) {
@@ -302,28 +292,10 @@ int main() {
 			al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
             // andando com personagem
-            if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                frame += 0.3f;
-                current_frame_y = 77 * 2;
-                pos_x += 4; }// seta pra direita
-            if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-                frame += 0.3f;
-                current_frame_y = 75;
-                pos_x -= 4; }//seta para esquerda
-            if (evento.keyboard.keycode == ALLEGRO_KEY_UP) {
-                frame += 0.3f;
-                current_frame_y = 78 * 4;
-                pos_y -= 4; }// Seta para cima
-            if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) { 
-                frame += 0.3f;
-                current_frame_y = 0;
-                pos_y += 4; }// seta para baixo
+            mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
 
             //delimitando bolinha ao tamanho da tela
-            if (pos_x >= 1280 - 55) { pos_x = pos_x - 10; }
-            if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
-            if (pos_y >= 720 - 75) { pos_y = pos_y - 10; }
-            if (pos_y <= 0 + 150) { pos_y = pos_y + 10; }
+            delimitar(evento, &pos_x, &pos_y);
 
             /*
             ============ SISTEMA DE TEMPO ================
@@ -332,11 +304,9 @@ int main() {
 
             if (evento.type == ALLEGRO_EVENT_TIMER && evento.timer.source == timer) {
                 tempo_restante--; // diminui o tempo em 1 segundo
-
                 if (tempo_restante <= 0) {
                     tela = 6; // mensagem de erro
                 }
-
                 minutos = tempo_restante / 60;
                 segundos = tempo_restante % 60;
             }
@@ -415,32 +385,13 @@ int main() {
         al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
         // andando com personagem
-        if (evento.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-            frame += 0.3f;
-            current_frame_y = 77 * 2;
-            pos_x += 4;
-        }// seta pra direita
-        if (evento.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-            frame += 0.3f;
-            current_frame_y = 75;
-            pos_x -= 4;
-        }//seta para esquerda
-        if (evento.keyboard.keycode == ALLEGRO_KEY_UP) {
-            frame += 0.3f;
-            current_frame_y = 78 * 4;
-            pos_y -= 4;
-        }// Seta para cima
-        if (evento.keyboard.keycode == ALLEGRO_KEY_DOWN) {
-            frame += 0.3f;
-            current_frame_y = 0;
-            pos_y += 4;
-        }// seta para baixo
+        mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
 
 //delimitando bolinha ao tamanho da tela
         if (pos_x >= 1280 - 55) { pos_x = pos_x - 10; }
         if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
-        if (pos_y >= 720 - 35) { pos_y = pos_y - 10; }
-        if (pos_y <= 0 + 150) { pos_y = pos_y + 10; }
+        if (pos_y >= 720 - 126) { pos_y = pos_y - 10; }
+        if (pos_y <= 0 + 25) { pos_y = pos_y + 10; }
 
     }
     ///TELA DE MENSAGEM DE ERRO
@@ -504,7 +455,7 @@ int main() {
         if (evento.type == ALLEGRO_EVENT_KEY_CHAR) {
             if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                 printf("Resposta final: %s\n", resposta);
-                if (strcmp(resposta, "01") == 0) {
+                if (strcmp(resposta, "primeiro") == 0 || strcmp(resposta, "primeiro mes") == 0 || strcmp(resposta, "01") == 0) {
                     tela = 3;
                     pos = 0;
                     resposta[0] = '\0';
