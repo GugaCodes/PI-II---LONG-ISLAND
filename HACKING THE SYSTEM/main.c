@@ -24,9 +24,12 @@ struct espaco {
     int livro3_x1, livro3_x2, livro3_y1, livro3_y2;
     int comp_x1, comp_x2, comp_y1, comp_y2;
 };
+//________________________________________________________________________________________________________
 
 int main() {
-
+    /*
+    =========== VARIAVEIS GLOBAIS ===============
+    */
     //criando uma váriavel de controle de telas
 
     int tela = 0;
@@ -36,14 +39,15 @@ int main() {
 
     float pos_x = 150, pos_y = 450, pos_x1 = 450, pos_Y2 = 450;
 
-	float frame = 0.f;
+    float frame = 0.f;
     int current_frame_y = 0;
-
-
-
 
     // VARIAVEIS DO MOUSE
     float mouseX, mouseY;
+
+    //__________________________________________________________________________________________________
+    
+
 
     //CRIANDO AS STRICT DO BOTÃO PRNCIPAL
 
