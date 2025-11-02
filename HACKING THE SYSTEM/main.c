@@ -8,6 +8,10 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <stdlib.h>
+#include <math.h>
+#include "Objetos.h"
+
 
 struct botao {
     int btn_x1, btn_x2, btn_y1, btn_y2;
@@ -44,6 +48,11 @@ int main() {
 
     // VARIAVEIS DO MOUSE
     float mouseX, mouseY;
+
+
+    //texto caindo
+    float velocidade_queda = 50;
+    
 
     //__________________________________________________________________________________________________
     
@@ -185,7 +194,10 @@ int main() {
     fase1.erro_y1 = 250;
     fase1.erro_y2 = 370;
 
-   
+   // -------------- INICIAALIZAÇÃO DE OBJETOS -------
+
+
+
 
 
     // inciciando biblioteca
@@ -380,22 +392,35 @@ int main() {
 
     // TELA COM A FASE 2
     if (tela == 5) {
+
+        //CRIANDO A TELA DA FASE
         al_clear_to_color(al_map_rgb(0, 125, 125));
         al_draw_bitmap(fase_2, 0, 0, 0);
         if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
             tela = 13;
         }
-
+        //DEFININDO A POSIÇÃO DA SPRITE NA TELA
+        pos_y = 587;
+        //DESENHANDO A SPRITE
         al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
-
+        
         // andando com personagem
-        mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
+        mover_personagem2(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
+        //velocidade_personagem = 50;
 
-//delimitando bolinha ao tamanho da tela
-        if (pos_x >= 1280 - 55) { pos_x = pos_x - 10; }
-        if (pos_x <= 0 - 8) { pos_x = pos_x + 10; }
-        if (pos_y >= 720 - 126) { pos_y = pos_y - 10; }
-        if (pos_y <= 0 + 25) { pos_y = pos_y + 10; }
+        //DELIMITANDO O PERSONGAME NA TELA
+        delimitar(evento, &pos_x, &pos_y);
+
+        
+
+        
+
+        
+
+        
+
+       
+        
 
     }
     ///TELA DE MENSAGEM DE ERRO

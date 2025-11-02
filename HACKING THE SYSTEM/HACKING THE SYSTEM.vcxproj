@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="delimitacao.h" />
     <ClInclude Include="movimento.h" />
+    <ClInclude Include="Objetos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
