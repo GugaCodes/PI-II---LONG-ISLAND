@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Objetos.h"
+#include "respostas.h"
+#include <time.h>
+
 
 
 struct botao {
@@ -203,17 +206,26 @@ int main() {
     // inciciando biblioteca
     al_init();
     al_init_font_addon();
+    al_init_ttf_addon();
     al_init_primitives_addon();
     al_install_keyboard();
     al_install_mouse();
     al_init_image_addon();
+
+    srand(time(NULL)); // pra gerar números aleatórios
+    init_answers(); // inicializa as respostas
+
+    float spawn_timer = 0;
+    float spawn_interval = 2.0; // a cada 2 segundos cria uma resposta
 
 
     ALLEGRO_DISPLAY* janela = al_create_display(width, height); /// criação da janela
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
+    ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 60,0) ; // FONTE DA FASE 2
     ALLEGRO_TIMER* timer = al_create_timer(1.0); // definindo "FPS"
+    ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
     ALLEGRO_BITMAP* fase_1 = al_load_bitmap("FASE1-PT.png");
@@ -236,9 +248,11 @@ int main() {
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
     al_register_event_source(fila_eventos, al_get_timer_event_source(timer));
+    al_register_event_source(fila_eventos, al_get_timer_event_source(timer_fase2));
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_start_timer(timer);
+    al_start_timer(timer_fase2);
 
     //VARIAVEIS PARA JOGAR A FASE 1
     char resposta[50] = "";
@@ -411,7 +425,24 @@ int main() {
         //DELIMITANDO O PERSONGAME NA TELA
         delimitar(evento, &pos_x, &pos_y);
 
+
+
+        if (evento.type == ALLEGRO_EVENT_TIMER) {
+            spawn_timer += 1.0 / 60;
+
+            // cria nova resposta a cada 2 segundos
+            if (spawn_timer >= spawn_interval) {
+                spawn_answer(3); // exemplo: resposta correta é "x = 3"
+                spawn_timer = 0;
+            }
+
+            update_answers(); // atualiza posições
+        }
+
         
+        draw_answers(fonte_fase2); // desenha respostas caindo
+
+        al_flip_display();
 
         
 

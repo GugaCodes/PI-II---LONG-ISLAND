@@ -139,6 +139,7 @@
     <ClCompile Include="delimitacao.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="movimento.c" />
+    <ClCompile Include="respostas.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -147,6 +148,7 @@
     <ClInclude Include="delimitacao.h" />
     <ClInclude Include="movimento.h" />
     <ClInclude Include="Objetos.h" />
+    <ClInclude Include="respostas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,6 +24,9 @@
     <ClCompile Include="delimitacao.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="respostas.c">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -36,6 +39,9 @@
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
     <ClInclude Include="Objetos.h">
+      <Filter>Arquivos de Origem</Filter>
+    </ClInclude>
+    <ClInclude Include="respostas.h">
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
   </ItemGroup>
