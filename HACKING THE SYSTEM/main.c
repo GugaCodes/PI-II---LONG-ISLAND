@@ -120,7 +120,9 @@ int main() {
     tela_fase2.btn_y1 = 180;
     tela_fase2.btn_y2 = 625;
 
-    //CRIANDO STRUCT PARA IR PARA FASE 3
+    //CRIANDO STRUCT PARA FUNCIONALIDADES DA FASE 3
+    // 
+    //-----------------------------------------------------------------//
 
     struct botao tela_fase3;
 
@@ -140,7 +142,21 @@ int main() {
     peixe.btn_x1 = 1140;
     peixe.btn_x2 = 1245;
     peixe.btn_y1 = 40;
-    peixe.btn_y2 = 100;
+    peixe.btn_y2 = 105;
+
+    struct botao phishing;
+    phishing.btn_x1 = 245;
+    phishing.btn_x2 = 465;
+    phishing.btn_y1 = 600;
+    phishing.btn_y2 = 653;
+
+    struct botao legitimo;
+    legitimo.btn_x1 = 840;
+    legitimo.btn_x2 = 1055;
+    legitimo.btn_y1 = 600;
+    legitimo.btn_y2 = 653;
+
+    //-----------------------------------------------------------------//
 
     //STRUCT PARA TELA DE PROXIMA FASE
 
@@ -255,7 +271,9 @@ int main() {
     ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
     ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
 	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
-    ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("PHISHING(invasao).png");
+    ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("PHISHING(pagamento).png");
+    ALLEGRO_BITMAP* tela_phishing2 = al_load_bitmap("LEGITIMO(entrega).png");
+
 
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
@@ -278,6 +296,9 @@ int main() {
 
     // CRIANDO UMA VÁRIAVEL DE VELOCIDADE PARA O PERSONGEM
     int velocidade_personagem = 10;
+
+    // VARIÁVEL DE RESPOSTAS DA FASE 3
+    int respostas_fase3 = 0;
 
     bool jogando = true;
     while (jogando) {
@@ -584,6 +605,11 @@ int main() {
             if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) { tela = 0; }
         }
     }
+
+
+    //--------------------------FASE-3-----------------------------//
+    // 
+  
     //TELA COM A FASE 3 DESBLOQUEADA
     if (tela == 14) {
         al_clear_to_color(al_map_rgb(0,0,144));
@@ -597,8 +623,7 @@ int main() {
 
         }
 
-        
-        
+
     }
 
     //TELA DE FASE COM O GUANABARA 3
@@ -619,25 +644,59 @@ int main() {
         }
     }
 
-    //TELA MENAGENS
+    //TELA MENSAGENS
 
     if (tela == 17) {
         al_draw_bitmap(tela_phishing1, 0, 0, 0);
-        //al_draw_filled_rectangle(peixe.btn_x1, peixe.btn_y1, peixe.btn_x2, peixe.btn_y2, al_map_rgb(255, 154, 32));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) { tela = 16; }
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                tela = 16;
+                continue;
+            }
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3++;
+                tela = 18;
+                continue;
+            }
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                tela = 18;
+                continue;
+            }
         }
-
     }
-
-  
-    //TELA FINAL
 
     if (tela == 18) {
-        al_draw_bitmap(tela_final, 0, 0, 0);
-        
-    }
+        al_draw_bitmap(tela_phishing2, 0, 0, 0);
 
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                tela = 15;
+                continue;
+            }
+
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3++;
+                if (respostas_fase3 >= 2) {
+                    tela = 25;
+                }
+                else
+                {
+                    tela = 15;
+                }
+                continue;
+            }
+        }
+    }
+    
+    
+    //--------------TELA FINAL-------------------//
+
+    
+    if (tela == 25) {
+        al_draw_bitmap(tela_final, 0, 0, 0);    
+   }
 
 
 
