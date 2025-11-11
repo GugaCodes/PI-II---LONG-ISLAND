@@ -12,8 +12,9 @@
 #include <math.h>
 #include "Objetos.h"
 #include "respostas.h"
+#include "questoes.h"
 #include <time.h>
-
+#include <string.h>
 
 
 struct botao {
@@ -214,6 +215,7 @@ int main() {
 
     srand(time(NULL)); // pra gerar números aleatórios
     init_answers(); // inicializa as respostas
+    nova_pergunta(); // escolhe a primeira pergunta aleatória
 
     float spawn_timer = 0;
     float spawn_interval = 2.0; // a cada 2 segundos cria uma resposta
@@ -223,8 +225,8 @@ int main() {
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
-    ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 60,0) ; // FONTE DA FASE 2
-    ALLEGRO_TIMER* timer = al_create_timer(1.0); // definindo "FPS"
+    ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20,0) ; // FONTE DA FASE 2
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
@@ -340,7 +342,7 @@ int main() {
                 minutos = tempo_restante / 60;
                 segundos = tempo_restante % 60;
             }
-            al_draw_textf(font, al_map_rgb(255, 255, 0), 50, 50, ALLEGRO_ALIGN_CENTRE, "%02d:%02d", minutos, segundos);
+            al_draw_textf(fonte_fase2, al_map_rgb(255, 255, 0), 50, 50, ALLEGRO_ALIGN_CENTRE, "%02d:%02d", minutos, segundos);
 
             //SE CHEGAR NA ESTANTE 1 E ABRIR O LIVRO
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
@@ -363,6 +365,8 @@ int main() {
             //SE CHEGAR NO COMPUTADOR, APARECE TELA DE SENHA
             //al_draw_filled_rectangle(fase1.comp_x1, fase1.comp_y1, fase1.comp_x2, fase1.comp_y2, al_map_rgb(248, 320, 124));
             if (pos_x >= fase1.comp_x1 && pos_x <= fase1.comp_x2 && pos_y >= fase1.comp_y1 && pos_y <= fase1.comp_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) {
+                memset(resposta, "", sizeof(resposta));
+                pos = 0;
                 tela = 11;
 
             }
@@ -407,16 +411,10 @@ int main() {
     // TELA COM A FASE 2
     if (tela == 5) {
 
-        //CRIANDO A TELA DA FASE
-        al_clear_to_color(al_map_rgb(0, 125, 125));
-        al_draw_bitmap(fase_2, 0, 0, 0);
         if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
             tela = 13;
         }
-        //DEFININDO A POSIÇÃO DA SPRITE NA TELA
-        pos_y = 587;
-        //DESENHANDO A SPRITE
-        al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
+        
         
         // andando com personagem
         mover_personagem2(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
@@ -430,19 +428,33 @@ int main() {
         if (evento.type == ALLEGRO_EVENT_TIMER) {
             spawn_timer += 1.0 / 60;
 
-            // cria nova resposta a cada 2 segundos
             if (spawn_timer >= spawn_interval) {
-                spawn_answer(3); // exemplo: resposta correta é "x = 3"
+                spawn_answer(pergunta_atual.resposta);
                 spawn_timer = 0;
             }
 
-            update_answers(); // atualiza posições
+            update_answers();
+
+            // ===================  DESENHO ============================
+            //CRIANDO A TELA DA FASE
+            al_draw_bitmap(fase_2, 0, 0, 0);
+
+            //DEFININDO A POSIÇÃO DA SPRITE NA TELA
+            pos_y = 587;
+            //DESENHANDO A SPRITE
+            al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
+
+            // Pergunta no topo
+            al_draw_text(font, al_map_rgb(255, 255, 255), 640, 50, ALLEGRO_ALIGN_CENTER, pergunta_atual.texto);
+
+            // Respostas caindo
+            draw_answers(font);
+
+            al_flip_display();
         }
 
-        
-        draw_answers(fonte_fase2); // desenha respostas caindo
 
-        al_flip_display();
+
 
         
 
@@ -500,7 +512,6 @@ int main() {
     */
 
     if (tela == 11) {
-
         /*
         ======= DESENHANDO A TELA ==========
         */
@@ -508,6 +519,7 @@ int main() {
         if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
             tela = 2;
         }
+
 
         /*
         ======= CRIAÇÃO DA MECÂNICA DE RESPOSTAS =============
