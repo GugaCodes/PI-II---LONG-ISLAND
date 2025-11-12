@@ -116,6 +116,8 @@ int main() {
     menu.btn4_y2 = 485;
 
 
+
+
     //CRIANDO A STRUCT DOS BOTÕES NA TELA DE FASES
 
     struct botao tela_fase;
@@ -153,6 +155,16 @@ int main() {
     tela_fase3.btn_x2 = 1180;
     tela_fase3.btn_y1 = 180;
     tela_fase3.btn_y2 = 625;
+
+    //TELA ERRO DA FASE 2
+    struct botao erro_2;
+
+    erro_2.btn_x1 = 320;
+    erro_2.btn2_x2 = 620;
+    erro_2.btn_y1 = 230;
+    erro_2.btn_y2 = 300;
+
+
 
     
 
@@ -271,6 +283,7 @@ int main() {
     ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
     ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
 	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
+    ALLEGRO_BITMAP* erro_fase2 = al_load_bitmap("ERRO_FASE2.png");
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
@@ -488,6 +501,10 @@ int main() {
                 tela = 13;
                 pontos = 0;
             }
+            else if (pontos == -30) {
+                tela = 30;
+                pontos = 0;
+            }
 
             al_flip_display();
         }
@@ -655,12 +672,23 @@ int main() {
             tela = 15;
         }
     }
+
+    //TELA ERRO FASE 2
+    if (tela == 30) {
+        al_draw_bitmap(erro_fase2, 0, 0, 0);
+        al_draw_filled_rectangle(tela_fase3.btn_x1, tela_fase3.btn_y1, tela_fase3.btn_x2, tela_fase3.btn_y2, al_map_rgb(255, 154, 32));
+        
+    }
+
+
     //TELA FINAL
 
     if (tela == 17) {
         al_draw_bitmap(tela_final, 0, 0, 0);
         
     }
+
+    
 
 
 
