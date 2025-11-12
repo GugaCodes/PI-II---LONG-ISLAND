@@ -156,6 +156,17 @@ int main() {
     legitimo.btn_y1 = 600;
     legitimo.btn_y2 = 653;
 
+    struct botao try;
+    try.btn_x1 = 840;
+    try.btn_x2 = 1055;
+    try.btn_y1 = 600;
+    try.btn_y2 = 653;
+
+    struct botao exit;
+    exit.btn_x1 = 840;
+    exit.btn_x2 = 1055;
+    exit.btn_y1 = 600;
+    exit.btn_y2 = 653;
     //-----------------------------------------------------------------//
 
     //STRUCT PARA TELA DE PROXIMA FASE
@@ -273,7 +284,8 @@ int main() {
 	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
     ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("PHISHING(pagamento).png");
     ALLEGRO_BITMAP* tela_phishing2 = al_load_bitmap("LEGITIMO(entrega).png");
-
+	ALLEGRO_BITMAP* phishing_consulta = al_load_bitmap("PHISHING_CONSULTA.png");
+	ALLEGRO_BITMAP* erro_fase3 = al_load_bitmap("ERRO_FASE3.png");
 
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
@@ -636,6 +648,7 @@ int main() {
 
     //TELA COM A FASE 3
     if (tela == 16) {
+        respostas_fase3 = 0;
         al_clear_to_color(al_map_rgb(148, 0, 144));
         al_draw_bitmap(fase_3, 0, 0, 0);
         //al_draw_filled_rectangle(play.btn_x1, play.btn_y1, play.btn_x2, play.btn_y2, al_map_rgb(255, 154, 32));
@@ -645,21 +658,22 @@ int main() {
     }
 
     //TELA MENSAGENS
+	
 
     if (tela == 17) {
         al_draw_bitmap(tela_phishing1, 0, 0, 0);
 
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
             if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 16;
+                tela = 19;
                 continue;
             }
             if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3++;
                 tela = 18;
                 continue;
             }
             if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3++;
                 tela = 18;
                 continue;
             }
@@ -670,6 +684,10 @@ int main() {
         al_draw_bitmap(tela_phishing2, 0, 0, 0);
 
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                tela = 20;
+                continue;
+            }
 
             if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
                 tela = 15;
@@ -678,25 +696,45 @@ int main() {
 
             if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
                 respostas_fase3++;
-                if (respostas_fase3 >= 2) {
-                    tela = 25;
-                }
-                else
+                if(respostas_fase3 == 2)
                 {
-                    tela = 15;
-                }
+                    tela = 25; //TELA FINAL DO JOGO
+                } else {
+                    tela = 21; // TELA DE ERRO FASE 3
+				}
                 continue;
             }
         }
     }
-    
+
+    if (tela == 19) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 17;
+        }
+    }
+
+    if (tela == 20) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 18;
+        }
+    }
+
+    if (tela == 21) {
+        al_draw_bitmap(erro_fase3, 0, 0, 0);
+        
+    }
+
+
     
     //--------------TELA FINAL-------------------//
 
     
     if (tela == 25) {
-        al_draw_bitmap(tela_final, 0, 0, 0);    
-   }
+        al_draw_bitmap(tela_final, 0, 0, 0);  
+
+     }
 
 
 
@@ -729,6 +767,7 @@ al_destroy_bitmap(guanabara_fase3);
 al_destroy_bitmap(fase_2);
 al_destroy_bitmap(fase_3);
 al_destroy_bitmap(tela_phishing1);
+al_destroy_bitmap(erro_fase3);
 
 
 return 0;
