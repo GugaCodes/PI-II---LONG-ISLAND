@@ -13,7 +13,23 @@ Questao banco[] = {
 int total_perguntas = sizeof(banco) / sizeof(banco[0]);
 Questao pergunta_atual;
 
-void nova_pergunta() {
-    srand(time(NULL));
-    pergunta_atual = banco[rand() % total_perguntas];
+void embaralhar_perguntas() {
+    for (int i = total_perguntas - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        Questao temp = banco[i];
+        banco[i] = banco[j];
+        banco[j] = temp;
+    }
 }
+
+
+static int indice_atual = 0;
+
+void nova_pergunta() {
+    if (indice_atual >= total_perguntas)
+        indice_atual = 0; // recomeça ou passa pra próxima fase
+
+    pergunta_atual = banco[indice_atual];
+    indice_atual++;
+}
+

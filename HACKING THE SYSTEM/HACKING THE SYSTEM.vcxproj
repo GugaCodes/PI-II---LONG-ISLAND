@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="colisao.c" />
     <ClCompile Include="delimitacao.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="movimento.c" />
@@ -146,6 +147,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="colisao.h" />
     <ClInclude Include="delimitacao.h" />
     <ClInclude Include="movimento.h" />
     <ClInclude Include="Objetos.h" />

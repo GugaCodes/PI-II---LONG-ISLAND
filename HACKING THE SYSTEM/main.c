@@ -1,3 +1,5 @@
+# define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include "movimento.h"
 #include "delimitacao.h"
@@ -13,6 +15,7 @@
 #include "Objetos.h"
 #include "respostas.h"
 #include "questoes.h"
+#include "colisao.h"
 #include <time.h>
 #include <string.h>
 
@@ -32,6 +35,15 @@ struct espaco {
     int livro3_x1, livro3_x2, livro3_y1, livro3_y2;
     int comp_x1, comp_x2, comp_y1, comp_y2;
 };
+
+/*bool colidiu(float x1, float y1, float w1, float h1,
+    float x2, float y2, float w2, float h2) {
+    return(x1 < x2 + w2 &&
+        x1 + w1 > x2 &&
+        y1 < y2 + h2 &&
+        y1 + h1 > y2
+        );
+}*/
 //________________________________________________________________________________________________________
 
 int main() {
@@ -52,6 +64,18 @@ int main() {
 
     // VARIAVEIS DO MOUSE
     float mouseX, mouseY;
+
+    //================= COLISÃO DO PERSONAGEM NA FASE 2 ===============================
+
+    float largura_personagem = 64;
+    float altura_personagem = 64;
+
+    float largura_resposta = 80;
+    float altura_resposta = 40;
+
+    //============== SISTEMA DE PONTUAÇÃO ==============
+    //int pontos = 0;
+
 
 
     //texto caindo
@@ -226,6 +250,7 @@ int main() {
 
     ALLEGRO_FONT* font = al_create_builtin_font();
     ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20,0) ; // FONTE DA FASE 2
+    ALLEGRO_FONT* fonte = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
@@ -435,6 +460,11 @@ int main() {
 
             update_answers();
 
+            //==================VERIFICANDO A COLISÃO =======================
+            verificar_colisoes(pos_x, pos_y, 64, 64, 80, 40);
+
+
+
             // ===================  DESENHO ============================
             //CRIANDO A TELA DA FASE
             al_draw_bitmap(fase_2, 0, 0, 0);
@@ -445,10 +475,19 @@ int main() {
             al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
             // Pergunta no topo
-            al_draw_text(font, al_map_rgb(255, 255, 255), 640, 50, ALLEGRO_ALIGN_CENTER, pergunta_atual.texto);
+            al_draw_text(fonte, al_map_rgb(255, 255, 255), 640, 50, ALLEGRO_ALIGN_CENTER, pergunta_atual.texto);
 
+            // TEXTO COM A PONTUAÇÃO
+            char texto_pontos[32];
+            sprintf(texto_pontos, "pontos: %d", pontos);
+            al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontos);
             // Respostas caindo
-            draw_answers(font);
+            draw_answers(fonte_fase2);
+
+            if (pontos == 50) {
+                tela = 13;
+                pontos = 0;
+            }
 
             al_flip_display();
         }
@@ -634,6 +673,7 @@ int main() {
 
 // destruindo eventos
 al_destroy_font(font);
+al_destroy_font(fonte_fase2);
 al_destroy_display(janela);
 al_destroy_event_queue(fila_eventos);
 al_destroy_bitmap(tela_inicial);
