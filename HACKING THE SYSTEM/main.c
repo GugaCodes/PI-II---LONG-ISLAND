@@ -181,17 +181,17 @@ int main() {
     legitimo.btn_y1 = 600;
     legitimo.btn_y2 = 653;
 
-    struct botao try;
-    try.btn_x1 = 840;
-    try.btn_x2 = 1055;
-    try.btn_y1 = 600;
-    try.btn_y2 = 653;
-
     struct botao exit;
-    exit.btn_x1 = 840;
-    exit.btn_x2 = 1055;
-    exit.btn_y1 = 600;
-    exit.btn_y2 = 653;
+    exit.btn_x1 = 650;
+    exit.btn_x2 = 950;
+    exit.btn_y1 = 410;
+    exit.btn_y2 = 510;
+
+    struct botao try;
+    try.btn_x1 = 345;
+    try.btn_x2 = 635;
+    try.btn_y1 = 410;
+    try.btn_y2 = 510;
     //-----------------------------------------------------------------//
 
     //STRUCT PARA TELA DE PROXIMA FASE
@@ -309,8 +309,12 @@ int main() {
     ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
     ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
 	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
-    ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("PHISHING(pagamento).png");
-    ALLEGRO_BITMAP* tela_phishing2 = al_load_bitmap("LEGITIMO(entrega).png");
+    ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("LEGITIMO(disciplinas).png");
+    ALLEGRO_BITMAP* tela_phishing2 = al_load_bitmap("PHISHING(presente).png");
+    ALLEGRO_BITMAP* tela_phishing3 = al_load_bitmap("PHISHING(fatura).png");
+    ALLEGRO_BITMAP* tela_phishing4 = al_load_bitmap("LEGITIMO(reuniao).png");
+    ALLEGRO_BITMAP* tela_phishing5 = al_load_bitmap("LEGITIMO(loja).png");
+    ALLEGRO_BITMAP* tela_phishing6= al_load_bitmap("PHISHING(redes).png");
 	ALLEGRO_BITMAP* phishing_consulta = al_load_bitmap("PHISHING_CONSULTA.png");
 	ALLEGRO_BITMAP* erro_fase3 = al_load_bitmap("ERRO_FASE3.png");
 
@@ -714,6 +718,9 @@ int main() {
     if (tela == 17) {
         al_draw_bitmap(tela_phishing1, 0, 0, 0);
 
+        //sprintf(respostas_fase3, "pontos: %d", respostas_fase3);
+        al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, respostas_fase3);
+
         if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
             if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
                 tela = 19;
@@ -724,7 +731,7 @@ int main() {
                 continue;
             }
             if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3++;
+                respostas_fase3+=10;
                 tela = 18;
                 continue;
             }
@@ -741,19 +748,117 @@ int main() {
             }
 
             if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                tela = 21;
+                respostas_fase3+=10;
+                tela = 31;
                 continue;
             }
 
             if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3++;
-                if(respostas_fase3 == 2)
-                {
-                    tela = 25; //TELA FINAL DO JOGO
-                } else {
-                    tela = 21; // TELA DE ERRO FASE 3
-				}
+                tela = 31;
                 continue;
+            }
+        }
+    }
+
+    if(tela == 31){
+        al_draw_bitmap(tela_phishing3, 0, 0, 0);
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                //tela = 21;
+                //continue;
+            }
+
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3+=10;
+                tela = 32;
+                continue;
+            }
+
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                tela = 32;
+                continue;
+            }
+        }
+    }
+
+    if (tela == 32) {
+        al_draw_bitmap(tela_phishing4, 0, 0, 0);
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                //tela = 22;
+                //continue;
+            }
+
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                tela = 33;
+                continue;
+            }
+
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3 += 10;
+                tela = 33;
+                continue;
+            }
+        }
+
+    }
+
+    if (tela == 33) {
+        al_draw_bitmap(tela_phishing5, 0, 0, 0);
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                //tela = 23;
+                //continue;
+            }
+
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                tela = 34;
+                continue;
+            }
+
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3 += 10;
+                tela = 34;
+                continue;
+                
+               
+            }
+        }
+    }
+
+    if (tela == 34) {
+        al_draw_bitmap(tela_phishing6, 0, 0, 0);
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                //tela = 24;
+                //continue;
+            }
+
+            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3 += 10;
+                if (respostas_fase3 >= 50) {
+                    tela = 25; //TELA FINAL DO JOGO
+                }
+                else {
+                    tela = 40; // TELA DE ERRO FASE 3
+                }
+                continue;
+
+            }
+
+            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                if (respostas_fase3 >= 50) {
+                    tela = 25; //TELA FINAL DO JOGO
+                }
+                else {
+                    tela = 40; // TELA DE ERRO FASE 3
+                }
+                continue;
+
             }
         }
     }
@@ -771,10 +876,50 @@ int main() {
             tela = 18;
         }
     }
-
     if (tela == 21) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 31;
+        }
+    }
+
+    if (tela == 22) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 32;
+        }
+    }
+
+    if (tela == 23) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 33;
+        }
+    }
+
+    if (tela == 24) {
+        al_draw_bitmap(phishing_consulta, 0, 0, 0);
+        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+            tela = 34;
+        }
+    }
+
+    if (tela == 40) {
         al_draw_bitmap(erro_fase3, 0, 0, 0);
-        
+
+        //al_draw_filled_rectangle(exit.btn_x1, exit.btn_y1, exit.btn_x2, exit.btn_y2, al_map_rgb(255, 154, 32));
+        //al_draw_filled_rectangle(try.btn_x1, try.btn_y1, try.btn_x2, try.btn_y2, al_map_rgb(255, 0, 0));
+
+        if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+            if (mouseX >= exit.btn_x1 && mouseX <= exit.btn_x2 && mouseY >= exit.btn_y1 && mouseY <= exit.btn_y2) {
+                tela = 0;
+
+            }
+            else if (mouseX >= try.btn_x1 && mouseX <= try.btn_x2 && mouseY >= try.btn_y1 && mouseY <= try.btn_y2) {
+                tela = 15;
+            }
+        }
+
     }
 
 
@@ -783,7 +928,7 @@ int main() {
 
     
     if (tela == 25) {
-        al_draw_bitmap(tela_final, 0, 0, 0);  
+        al_draw_bitmap(tela_final, 0, 0, 0); 
 
      }
 
