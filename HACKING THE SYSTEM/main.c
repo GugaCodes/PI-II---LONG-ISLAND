@@ -18,6 +18,8 @@
 #include "colisao.h"
 #include <time.h>
 #include <string.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 
 struct botao {
@@ -46,7 +48,24 @@ struct espaco {
 }*/
 //________________________________________________________________________________________________________
 
+ /*
+    ========== INICIANDO OS SONS DO JOGO =====================
+    */
+
+ALLEGRO_SAMPLE* trilha_sonora = NULL;
+ALLEGRO_SAMPLE* acerto = NULL;
+ALLEGRO_SAMPLE* erro = NULL;
+ALLEGRO_SAMPLE* aplausos = NULL;
+ALLEGRO_SAMPLE* clique_tela = NULL;
+
+ALLEGRO_SAMPLE_INSTANCE* inst_trilha_sonora = NULL;
+ALLEGRO_SAMPLE_INSTANCE* inst_acerto = NULL;
+ALLEGRO_SAMPLE_INSTANCE* inst_erro = NULL;
+ALLEGRO_SAMPLE_INSTANCE* inst_aplausos = NULL;
+ALLEGRO_SAMPLE_INSTANCE* inst_clique_tela = NULL;
+
 int main() {
+
     /*
     =========== VARIAVEIS GLOBAIS ===============
     */
@@ -54,6 +73,8 @@ int main() {
 
     int tela = 0;
     int height = 720, width = 1280;
+
+    bool tocar_aplausos = false;
 
     //DELIMMITANDO POSIÇÃO INICIAL DO PERSONAGEM
 
@@ -260,6 +281,9 @@ int main() {
     fase1.erro_y1 = 250;
     fase1.erro_y2 = 370;
 
+
+   
+
    // -------------- INICIAALIZAÇÃO DE OBJETOS -------
 
 
@@ -274,6 +298,11 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
     al_init_image_addon();
+    
+    al_install_audio();
+    al_init_acodec_addon();
+
+    al_reserve_samples(10);
 
     srand(time(NULL)); // pra gerar números aleatórios
     init_answers(); // inicializa as respostas
@@ -327,6 +356,13 @@ int main() {
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_start_timer(timer);
     al_start_timer(timer_fase2);
+    //-------------------------------------------------------------------------
+    //=================CRIAÇÃO DE DISPOSITIVOS=====================
+    trilha_sonora = al_load_sample()
+
+
+    
+    //--------------------------------------------------------------------------
 
     //VARIAVEIS PARA JOGAR A FASE 1
     char resposta[50] = "";
