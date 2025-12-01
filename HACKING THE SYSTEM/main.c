@@ -289,6 +289,7 @@ int main() {
     ALLEGRO_FONT* font = al_create_builtin_font();
     ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20,0) ; // FONTE DA FASE 2
     ALLEGRO_FONT* fonte = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
+    ALLEGRO_FONT* fonte_fase3 = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
@@ -675,7 +676,9 @@ int main() {
 
 
     /*---------------------------------------FASE  3------------------------------------------- */
-   
+
+    char texto_pontuacao[32];
+    sprintf(texto_pontuacao, "Pontos: %d", respostas_fase3);   
   
     //TELA COM A FASE 3 DESBLOQUEADA
     if (tela == 14) {
@@ -717,24 +720,36 @@ int main() {
 
     if (tela == 17) {
         al_draw_bitmap(tela_phishing1, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
     else if (tela == 18) {
         al_draw_bitmap(tela_phishing2, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
 	else if (tela == 19 || tela == 20 || tela == 21 || tela == 22 || tela == 23 || tela == 24) {
         al_draw_bitmap(phishing_consulta, 0, 0, 0);
     }
     else if (tela == 31) {
         al_draw_bitmap(tela_phishing3, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
     else if (tela == 32) {
         al_draw_bitmap(tela_phishing4, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
     else if (tela == 33) {
         al_draw_bitmap(tela_phishing5, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
     else if (tela == 34) {
         al_draw_bitmap(tela_phishing6, 0, 0, 0);
+        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
+
     }
     else if (tela == 40) {
         al_draw_bitmap(erro_fase3, 0, 0, 0);
@@ -749,6 +764,7 @@ int main() {
                 tela = 19;
             }
             else if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3 -= 10;
                 tela = 18;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
@@ -766,6 +782,7 @@ int main() {
                 tela = 31;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3 -= 10;
                 tela = 31;
             }
             break;
@@ -779,6 +796,7 @@ int main() {
                 tela = 32;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3 -= 10;
                 tela = 32;
             }
             break;
@@ -788,6 +806,7 @@ int main() {
                 tela = 22;
             }
             if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3 -= 10;
                 tela = 33;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
@@ -801,6 +820,7 @@ int main() {
                 tela = 23;
             }
             if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                respostas_fase3 -= 10;
                 tela = 34;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
@@ -819,6 +839,7 @@ int main() {
                 else tela = 40;
             }
             else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                respostas_fase3 -= 10;
                 if (respostas_fase3 >= 50) tela = 25;
                 else tela = 40;
             }
