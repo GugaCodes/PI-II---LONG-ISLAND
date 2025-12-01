@@ -63,7 +63,7 @@ int main() {
     int current_frame_y = 0;
 
     // VARIAVEIS DO MOUSE
-    float mouseX, mouseY;
+    float mouseX = 0.f, mouseY = 0.f;
 
     //================= COLISÃO DO PERSONAGEM NA FASE 2 ===============================
 
@@ -133,6 +133,52 @@ int main() {
     tela_fase.btn2_x2 = 460;
     tela_fase.btn2_y1 = 180;
     tela_fase.btn2_y2 = 625;
+
+
+	//---------------------COLISÕES FASE 1--------------------------//
+
+    struct botao mesa;
+    mesa.btn_x1 = 438;
+    mesa.btn_x2 = 510;
+    mesa.btn_y1 = 240;
+    mesa.btn_y2 = 300;
+
+    struct botao mesa2;
+    mesa2.btn_x1 = 728;
+    mesa2.btn_x2 = 790;
+    mesa2.btn_y1 = 243;
+    mesa2.btn_y2 = 300;
+
+    struct botao bau;
+    bau.btn_x1 = 590;
+    bau.btn_x2 = 650;
+    bau.btn_y1 = 325;
+    bau.btn_y2 = 350;
+
+    struct botao quadro;
+    quadro.btn_x1 = 1070;
+    quadro.btn_x2 = 1120;
+    quadro.btn_y1 = 326;
+    quadro.btn_y2 = 350;
+
+    struct botao pistas;
+    pistas.btn_x1 = 140;
+    pistas.btn_x2 = 180;
+    pistas.btn_y1 = 245;
+    pistas.btn_y2 = 265;
+
+    struct botao mesapc;
+    mesapc.btn_x1 = 150;
+    mesapc.btn_x2 = 280;
+    mesapc.btn_y1 = 390;
+    mesapc.btn_y2 = 420;
+
+    struct botao estantes;
+    estantes.btn_x1 = 120;
+    estantes.btn_x2 = 325;
+    estantes.btn_y1 = 520;
+    estantes.btn_y2 = 560;
+
 
     //CRIANDO STRUCT PARA IR PARA FASE 2
 
@@ -327,6 +373,16 @@ int main() {
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_start_timer(timer);
     al_start_timer(timer_fase2);
+    colisao_init();
+    colisao_clear();
+    colisao_add(mesa.btn_x1, mesa.btn_y1, mesa.btn_x2, mesa.btn_y2);
+    colisao_add(mesa2.btn_x1, mesa2.btn_y1, mesa2.btn_x2, mesa2.btn_y2);
+    colisao_add(bau.btn_x1, bau.btn_y1, bau.btn_x2, bau.btn_y2);
+    colisao_add(quadro.btn_x1, quadro.btn_y1, quadro.btn_x2, quadro.btn_y2);
+    colisao_add(pistas.btn_x1, pistas.btn_y1, pistas.btn_x2, pistas.btn_y2);
+    colisao_add(mesapc.btn_x1, mesapc.btn_y1, mesapc.btn_x2, mesapc.btn_y2);
+    colisao_add(estantes.btn_x1, estantes.btn_y1, estantes.btn_x2, estantes.btn_y2);
+
 
     //VARIAVEIS PARA JOGAR A FASE 1
     char resposta[50] = "";
@@ -398,11 +454,23 @@ int main() {
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
 			al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
-            // andando com personagem
+
+            float prev_x = pos_x;
+            float prev_y = pos_y;
+
+            // aplica movimento (leva pos_x/pos_y para a nova posição)
             mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
 
-            //delimitando bolinha ao tamanho da tela
+            // limita posição à tela
             delimitar(evento, &pos_x, &pos_y);
+
+            // testa colisão com obstáculos registrados
+            // se colidir, revertendo para posição anterior
+            if (colisao_test(pos_x, pos_y, (int)largura_personagem, (int)altura_personagem)) {
+                pos_x = prev_x;
+                pos_y = prev_y;
+                // opcional: printf("DEBUG: colisão, rollback para %.1f, %.1f\n", pos_x, pos_y);
+            }
 
             /*
             ============ SISTEMA DE TEMPO ================
@@ -445,7 +513,16 @@ int main() {
                 tela = 11;
 
             }
-         
+
+            //al_draw_filled_rectangle(mesa.btn_x1, mesa.btn_y1, mesa.btn_x2, mesa.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(mesa2.btn_x1, mesa2.btn_y1, mesa2.btn_x2, mesa2.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(bau.btn_x1, bau.btn_y1, bau.btn_x2, bau.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(quadro.btn_x1, quadro.btn_y1, quadro.btn_x2, quadro.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(pistas.btn_x1, pistas.btn_y1, pistas.btn_x2, pistas.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(mesapc.btn_x1, mesapc.btn_y1, mesapc.btn_x2, mesapc.btn_y2, al_map_rgb(248, 320, 124));
+            //al_draw_filled_rectangle(estantes.btn_x1, estantes.btn_y1, estantes.btn_x2, estantes.btn_y2, al_map_rgb(248, 320, 124));
+
+                  
             // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
             if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela = 6; }
@@ -826,7 +903,7 @@ int main() {
 
         case 40:
             if (mouseX >= exit.btn_x1 && mouseX <= exit.btn_x2 && mouseY >= exit.btn_y1 && mouseY <= exit.btn_y2) {
-                tela = 0;
+                break;
             }
             else if (mouseX >= try.btn_x1 && mouseX <= try.btn_x2 && mouseY >= try.btn_y1 && mouseY <= try.btn_y2) {
                 tela = 15;
