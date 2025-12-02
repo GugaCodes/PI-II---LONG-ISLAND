@@ -171,7 +171,7 @@ int main() {
     tela_fase.btn2_y2 = 625;
 
 
-	//---------------------COLISÕES FASE 1--------------------------//
+    //---------------------COLISÕES FASE 1--------------------------//
 
     struct botao mesa;
     mesa.btn_x1 = 438;
@@ -693,7 +693,7 @@ int main() {
             }
 
             /*
-			   ---- Delimitação das Colisões dos Objetos da Fase 1 ----
+               ---- Delimitação das Colisões dos Objetos da Fase 1 ----
             al_draw_filled_rectangle(mesa.btn_x1, mesa.btn_y1, mesa.btn_x2, mesa.btn_y2, al_map_rgb(248, 320, 124));
             al_draw_filled_rectangle(mesa2.btn_x1, mesa2.btn_y1, mesa2.btn_x2, mesa2.btn_y2, al_map_rgb(248, 320, 124));
             al_draw_filled_rectangle(bau.btn_x1, bau.btn_y1, bau.btn_x2, bau.btn_y2, al_map_rgb(248, 320, 124));
@@ -710,7 +710,7 @@ int main() {
             al_draw_filled_rectangle(sofa.btn_x1, sofa.btn_y1, sofa.btn_x2, sofa.btn_y2, al_map_rgb(248, 320, 124));
             al_draw_filled_rectangle(pc2.btn_x1, pc2.btn_y1, pc2.btn_x2, pc2.btn_y2, al_map_rgb(248, 320, 124));
             */
-            
+
 
             // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
