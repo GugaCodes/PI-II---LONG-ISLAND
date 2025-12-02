@@ -90,6 +90,8 @@ int main() {
     bool errofase1 = false;
     bool errofase2 = false;
     bool errofase3 = false;
+    bool tempo_resetado_fase2 = false;
+
 
     //DELIMMITANDO POSIÇÃO INICIAL DO PERSONAGEM
 
@@ -428,6 +430,7 @@ int main() {
     ALLEGRO_FONT* font = al_create_builtin_font();
     ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20, 0); // FONTE DA FASE 2
     ALLEGRO_FONT* fonte = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
+    ALLEGRO_FONT* fonte_fase3 = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 3
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
@@ -625,6 +628,11 @@ int main() {
 
         // TELA DA FASE 1
         if (tela == 2) {
+            if (!tempo_resetado_fase2) {
+                tempo_restante = 10 * 60;   // reseta o tempo uma única vez
+                tempo_resetado_fase2 = true;      // impede de resetar a cada frame
+            }
+            
             al_stop_sample_instance(inst_trilha_sonora);
             al_play_sample_instance(inst_relogio);
             al_play_sample_instance(inst_som_fase1);
@@ -737,7 +745,7 @@ int main() {
 
 
 
-
+            tempo_resetado_fase2 = false;
             al_clear_to_color(al_map_rgb(0, 125, 125));
             al_draw_bitmap(fase_concluida, 0, 0, 0);
             //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
@@ -758,6 +766,7 @@ int main() {
 
         // TELA DE FASES COM A SEGUNDA FASE DESBLOQUEADA
         if (tela == 4) {
+            tempo_resetado_fase2 = false;
             al_stop_sample_instance(inst_missionPassed);
             al_clear_to_color(al_map_rgb(0, 125, 125));
             al_draw_bitmap(tela_fases_2, 0, 0, 0);
@@ -781,6 +790,7 @@ int main() {
 
         // TELA COM A FASE 2
         if (tela == 5) {
+            tempo_resetado_fase2 = false;
             al_play_sample_instance(inst_somfase2);
 
             if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
@@ -854,6 +864,7 @@ int main() {
         }
         ///TELA DE MENSAGEM DE ERRO
         if (tela == 6) {
+            tempo_resetado_fase2 = false;
             al_stop_sample_instance(inst_relogio);
             al_stop_sample_instance(inst_som_fase1);
             if (!errofase1) {
@@ -888,12 +899,14 @@ int main() {
 
         //DESENHANDO TELA DO LIVRO COM ENIGMA 1
         if (tela == 7) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(livro1, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
 
         //DESENHANDO TELA DO LIVRO COM ENIGMA 2;
         if (tela == 8) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(livro2, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
@@ -901,12 +914,14 @@ int main() {
         //DESENHANDO TELA DO LIVRO COM ENIGMA 3
 
         if (tela == 9) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(livro3, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
 
         // TELA COM GUANABARA NA FASE 1
         if (tela == 10) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(guanabara_fase1, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                 tela = 2;
@@ -919,6 +934,7 @@ int main() {
         */
 
         if (tela == 11) {
+            tempo_resetado_fase2 = false;
             /*
             ======= DESENHANDO A TELA ==========
             */
@@ -972,6 +988,7 @@ int main() {
         // TELA DE FASE COM GUANABARA 2
 
         if (tela == 12) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(guanabara_fase2, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                 tela = 5;
@@ -983,6 +1000,7 @@ int main() {
         // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE - 2
 
         if (tela == 13) {
+            tempo_resetado_fase2 = false;
             al_stop_sample_instance(inst_somfase2);
             if (!missaoConcluida2) {
                 al_play_sample_instance(inst_missionPassed);
@@ -1008,10 +1026,13 @@ int main() {
 
 
         //--------------------------FASE-3-----------------------------//
-        // 
+        
+        char texto_pontuacao[32];
+        sprintf(texto_pontuacao, "Pontos: %d", respostas_fase3);
 
         //TELA COM A FASE 3 DESBLOQUEADA
         if (tela == 14) {
+            tempo_resetado_fase2 = false;
 
             al_stop_sample_instance(inst_missionPassed);
             al_clear_to_color(al_map_rgb(0, 0, 144));
@@ -1042,6 +1063,7 @@ int main() {
 
         //TELA DE FASE COM O GUANABARA 3
         if (tela == 15) {
+            tempo_resetado_fase2 = false;
             al_stop_sample_instance(inst_erro_tela);
             al_draw_bitmap(guanabara_fase3, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
@@ -1052,6 +1074,7 @@ int main() {
 
         //TELA COM A FASE 3
         if (tela == 16) {
+            tempo_resetado_fase2 = false;
             respostas_fase3 = 0;
             al_clear_to_color(al_map_rgb(148, 0, 144));
             al_draw_bitmap(fase_3, 0, 0, 0);
@@ -1066,7 +1089,9 @@ int main() {
 
 
         if (tela == 17) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing1, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             //sprintf(respostas_fase3, "pontos: %d", respostas_fase3);
             al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, respostas_fase3);
@@ -1092,7 +1117,9 @@ int main() {
         }
 
         if (tela == 18) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing2, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
                 if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
@@ -1117,7 +1144,9 @@ int main() {
         }
 
         if (tela == 31) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing3, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
                 if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
@@ -1142,7 +1171,9 @@ int main() {
         }
 
         if (tela == 32) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing4, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
                 if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
@@ -1168,7 +1199,9 @@ int main() {
         }
 
         if (tela == 33) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing5, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
                 if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
@@ -1195,7 +1228,9 @@ int main() {
         }
 
         if (tela == 34) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_phishing6, 0, 0, 0);
+            al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
 
             if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
                 if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
@@ -1233,6 +1268,7 @@ int main() {
         }
 
         if (tela == 19) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 17;
@@ -1241,6 +1277,7 @@ int main() {
         }
 
         if (tela == 20) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 18;
@@ -1248,6 +1285,7 @@ int main() {
             }
         }
         if (tela == 21) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 31;
@@ -1256,6 +1294,7 @@ int main() {
         }
 
         if (tela == 22) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 32;
@@ -1264,6 +1303,7 @@ int main() {
         }
 
         if (tela == 23) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 33;
@@ -1272,6 +1312,7 @@ int main() {
         }
 
         if (tela == 24) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(phishing_consulta, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                 tela = 34;
@@ -1280,6 +1321,7 @@ int main() {
         }
 
         if (tela == 40) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(erro_fase3, 0, 0, 0);
             if (!errofase3) {
                 al_play_sample_instance(inst_erro_tela);
@@ -1312,6 +1354,7 @@ int main() {
 
 
         if (tela == 25) {
+            tempo_resetado_fase2 = false;
             al_draw_bitmap(tela_final, 0, 0, 0);
             al_play_sample_instance(inst_concluido);
 
