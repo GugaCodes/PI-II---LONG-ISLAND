@@ -116,10 +116,10 @@ int main() {
 
     //texto caindo
     float velocidade_queda = 50;
-    
+
 
     //__________________________________________________________________________________________________
-    
+
 
 
     //CRIANDO AS STRICT DO BOTÃO PRNCIPAL
@@ -275,7 +275,7 @@ int main() {
     fase1.livro2_y2 = 270;
 
     // MESA COM LIVRO 3
-    
+
     fase1.livro3_x1 = 430;
     fase1.livro3_x2 = 550;
     fase1.livro3_y1 = 240;
@@ -297,15 +297,15 @@ int main() {
     fase1.erro_y2 = 370;
 
 
-   
-
-   // -------------- INICIAALIZAÇÃO DE OBJETOS -------
 
 
+    // -------------- INICIAALIZAÇÃO DE OBJETOS -------
 
 
 
-    // inciciando biblioteca
+
+
+     // inciciando biblioteca
     al_init();
     al_init_font_addon();
     al_init_ttf_addon();
@@ -313,7 +313,7 @@ int main() {
     al_install_keyboard();
     al_install_mouse();
     al_init_image_addon();
-    
+
     al_install_audio();
     al_init_acodec_addon();
 
@@ -331,9 +331,8 @@ int main() {
     al_set_window_position(janela, 200, 200); // posição inicial da janela
 
     ALLEGRO_FONT* font = al_create_builtin_font();
-    ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20,0) ; // FONTE DA FASE 2
+    ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20, 0); // FONTE DA FASE 2
     ALLEGRO_FONT* fonte = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
-    ALLEGRO_FONT* fonte_fase3 = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
@@ -353,15 +352,15 @@ int main() {
     ALLEGRO_BITMAP* tela_senha = al_load_bitmap("TELA_SENHA.png");
     ALLEGRO_BITMAP* guanabara_fase2 = al_load_bitmap("GAFANHOTO2.png");
     ALLEGRO_BITMAP* guanabara_fase3 = al_load_bitmap("GAFANHOTO3.png");
-	ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
+    ALLEGRO_BITMAP* sprite = al_load_bitmap("PERSONAGEM.png");
     ALLEGRO_BITMAP* tela_phishing1 = al_load_bitmap("LEGITIMO(disciplinas).png");
     ALLEGRO_BITMAP* tela_phishing2 = al_load_bitmap("PHISHING(presente).png");
     ALLEGRO_BITMAP* tela_phishing3 = al_load_bitmap("PHISHING(fatura).png");
     ALLEGRO_BITMAP* tela_phishing4 = al_load_bitmap("LEGITIMO(reuniao).png");
     ALLEGRO_BITMAP* tela_phishing5 = al_load_bitmap("LEGITIMO(loja).png");
-    ALLEGRO_BITMAP* tela_phishing6= al_load_bitmap("PHISHING(redes).png");
-	ALLEGRO_BITMAP* phishing_consulta = al_load_bitmap("PHISHING_CONSULTA.png");
-	ALLEGRO_BITMAP* erro_fase3 = al_load_bitmap("ERRO_FASE3.png");
+    ALLEGRO_BITMAP* tela_phishing6 = al_load_bitmap("PHISHING(redes).png");
+    ALLEGRO_BITMAP* phishing_consulta = al_load_bitmap("PHISHING_CONSULTA.png");
+    ALLEGRO_BITMAP* erro_fase3 = al_load_bitmap("ERRO_FASE3.png");
 
 
     ALLEGRO_EVENT_QUEUE* fila_eventos = al_create_event_queue(); // criação da fila de eventos
@@ -394,8 +393,8 @@ int main() {
     inst_missionPassed = al_create_sample_instance(missionPassed);
     inst_erro_tela = al_create_sample_instance(erro_tela);
     inst_concluido = al_create_sample_instance(concluido);
-    
-    
+
+
     al_attach_sample_instance_to_mixer(inst_clique_tela, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(inst_clique_tela2, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(inst_trilha_sonora, al_get_default_mixer());
@@ -423,7 +422,7 @@ int main() {
 
 
 
-    
+
     //--------------------------------------------------------------------------
 
     //VARIAVEIS PARA JOGAR A FASE 1
@@ -450,9 +449,9 @@ int main() {
         }
 
         frame += 0.0f;
-        if(frame > 4) {
+        if (frame > 4) {
             frame -= 4;
-		}
+        }
         if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) { //Saber a posição do meu mouse
             mouseX = evento.mouse.x; // verifico a posição X
             mouseY = evento.mouse.y; // Verifico a posição Y
@@ -476,10 +475,10 @@ int main() {
             //al_draw_filled_rectangle(menu.btn_x1, menu.btn_y1, menu.btn_x2, menu.btn_y2, al_map_rgb(255, 154, 32));
             if (evento.mouse.button & 1) {
                 if (mouseX >= menu.btn_x1 && mouseX <= menu.btn_x2 && mouseY >= menu.btn_y1 && mouseY <= menu.btn_y2) {
-                    tela++; 
+                    tela++;
                     al_play_sample_instance(inst_clique_tela);
                 }
-                if (mouseX >= menu.btn2_x1 && mouseX <= menu.btn2_x2 && mouseY >= menu.btn2_y1 && mouseY <= menu.btn2_y2) { 
+                if (mouseX >= menu.btn2_x1 && mouseX <= menu.btn2_x2 && mouseY >= menu.btn2_y1 && mouseY <= menu.btn2_y2) {
                     break;
                     al_play_sample_instance(inst_clique_tela);
                 }
@@ -492,14 +491,14 @@ int main() {
         if (tela == 1) {
             al_clear_to_color(al_map_rgb(0, 125, 125));// colocando a cor da tela
             al_draw_bitmap(tela_fases, 0, 0, 0);
-            
+
             //al_draw_filled_rectangle(tela_fase.btn2_x1, tela_fase.btn2_y1, tela_fase.btn2_x2, tela_fase.btn2_y2, al_map_rgb(255, 154, 32));
             if (evento.mouse.button & 1) {
-                if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) { 
-                    tela--; 
+                if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) {
+                    tela--;
                     al_play_sample_instance(inst_clique_tela);
                 }
-                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) { 
+                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) {
                     tela = 10;
                     al_play_sample_instance(inst_clique_tela);
                 }
@@ -514,7 +513,7 @@ int main() {
             al_play_sample_instance(inst_som_fase1);
             al_draw_bitmap(fase_1, 0, 0, 0);
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
-			al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
+            al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
             // andando com personagem
             mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
@@ -525,7 +524,7 @@ int main() {
             /*
             ============ SISTEMA DE TEMPO ================
             */
-            
+
 
             if (evento.type == ALLEGRO_EVENT_TIMER && evento.timer.source == timer) {
                 tempo_restante--; // diminui o tempo em 1 segundo
@@ -563,707 +562,666 @@ int main() {
                 tela = 11;
 
             }
-         
+
             // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
             if (pos_x >= fase1.erro_x1 && pos_x <= fase1.erro_x2 && pos_y >= fase1.erro_y1 && pos_y <= fase1.erro_y2 && evento.keyboard.keycode == ALLEGRO_KEY_E) { tela = 6; }
-            
 
-            
+
+
         }
 
-        
 
 
 
-    // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE
 
-    if (tela == 3) {
-        if (!missaoConcluida) {
+        // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE
+
+        if (tela == 3) {
+            if (!missaoConcluida) {
+                al_stop_sample_instance(inst_relogio);
+                al_stop_sample_instance(inst_som_fase1);
+                al_play_sample_instance(inst_missionPassed);
+                missaoConcluida = true;
+            }
+
+
+
+
+
+            al_clear_to_color(al_map_rgb(0, 125, 125));
+            al_draw_bitmap(fase_concluida, 0, 0, 0);
+            //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) {
+                    tela = 4;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+            }
+        }
+        else {
+            missaoConcluida = false;
+        }
+
+        // TELA DE FASES COM A SEGUNDA FASE DESBLOQUEADA
+        if (tela == 4) {
+            al_stop_sample_instance(inst_missionPassed);
+            al_clear_to_color(al_map_rgb(0, 125, 125));
+            al_draw_bitmap(tela_fases_2, 0, 0, 0);
+            //al_draw_filled_rectangle(tela_fase2.btn_x1, tela_fase2.btn_y1, tela_fase2.btn_x2, tela_fase2.btn_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) {
+                    tela = 12;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) {
+                    tela = 2;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+
+            }
+        }
+
+        // TELA COM A FASE 2
+        if (tela == 5) {
+            al_play_sample_instance(inst_somfase2);
+
+            if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
+                tela = 13;
+            }
+
+
+            // andando com personagem
+            mover_personagem2(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
+            //velocidade_personagem = 50;
+
+            //DELIMITANDO O PERSONGAME NA TELA
+            delimitar(evento, &pos_x, &pos_y);
+
+
+
+            if (evento.type == ALLEGRO_EVENT_TIMER) {
+                spawn_timer += 1.0 / 60;
+
+                if (spawn_timer >= spawn_interval) {
+                    spawn_answer(pergunta_atual.resposta);
+                    spawn_timer = 0;
+                }
+
+                update_answers();
+
+                //==================VERIFICANDO A COLISÃO =======================
+                verificar_colisoes(pos_x, pos_y, 64, 64, 80, 40);
+
+
+
+                // ===================  DESENHO ============================
+                //CRIANDO A TELA DA FASE
+                al_draw_bitmap(fase_2, 0, 0, 0);
+
+                //DEFININDO A POSIÇÃO DA SPRITE NA TELA
+                pos_y = 587;
+                //DESENHANDO A SPRITE
+                al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
+
+                // Pergunta no topo
+                al_draw_text(fonte, al_map_rgb(255, 255, 255), 640, 50, ALLEGRO_ALIGN_CENTER, pergunta_atual.texto);
+
+                // TEXTO COM A PONTUAÇÃO
+                char texto_pontos[32];
+                sprintf(texto_pontos, "pontos: %d", pontos);
+                al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontos);
+                // Respostas caindo
+                draw_answers(fonte_fase2);
+
+                if (pontos == 50) {
+                    tela = 13;
+                    pontos = 0;
+                }
+
+                al_flip_display();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+        ///TELA DE MENSAGEM DE ERRO
+        if (tela == 6) {
             al_stop_sample_instance(inst_relogio);
             al_stop_sample_instance(inst_som_fase1);
-            al_play_sample_instance(inst_missionPassed);
-            missaoConcluida = true;
+            if (!errofase1) {
+                al_play_sample_instance(inst_erro_tela);
+                errofase1 = true;
+            }
+
+
+            al_draw_bitmap(mensagem_erro, 0, 0, 0);
+            //al_draw_filled_rectangle(menu.btn3_x1, menu.btn3_y1, menu.btn3_x2, menu.btn3_y2, al_map_rgb(255, 154, 32));
+            //al_draw_filled_rectangle(menu.btn4_x1, menu.btn4_y1, menu.btn4_x2, menu.btn4_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= menu.btn4_x1 && mouseX <= menu.btn4_x2 && mouseY >= menu.btn4_y1 && mouseY <= menu.btn4_y2) {
+                    tela = 1;
+                    al_play_sample_instance(inst_clique_tela);
+                    al_stop_sample_instance(inst_erro_tela);
+
+                }
+                if (mouseX >= menu.btn3_x1 && mouseX <= menu.btn3_x2 && mouseY >= menu.btn3_y1 && mouseY <= menu.btn3_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
+                    al_stop_sample_instance(inst_erro_tela);
+                }
+            }
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+
+
         }
-        
-
-        
-        
-
-        al_clear_to_color(al_map_rgb(0, 125, 125));
-        al_draw_bitmap(fase_concluida, 0, 0, 0);
-        //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) { 
-                tela = 4;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) {
-                tela = 0;
-                al_play_sample_instance(inst_clique_tela);
-            }
+        else {
+            errofase1 = false;
         }
-    }
-    else {
-        missaoConcluida = false;
-    }
 
-    // TELA DE FASES COM A SEGUNDA FASE DESBLOQUEADA
-    if (tela == 4) {
-        al_stop_sample_instance(inst_missionPassed);
-        al_clear_to_color(al_map_rgb(0, 125, 125));
-        al_draw_bitmap(tela_fases_2, 0, 0, 0);
-        //al_draw_filled_rectangle(tela_fase2.btn_x1, tela_fase2.btn_y1, tela_fase2.btn_x2, tela_fase2.btn_y2, al_map_rgb(255, 154, 32));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) {
-                tela = 12;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) {
-                tela = 0;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) {
+        //DESENHANDO TELA DO LIVRO COM ENIGMA 1
+        if (tela == 7) {
+            al_draw_bitmap(livro1, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+        }
+
+        //DESENHANDO TELA DO LIVRO COM ENIGMA 2;
+        if (tela == 8) {
+            al_draw_bitmap(livro2, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+        }
+
+        //DESENHANDO TELA DO LIVRO COM ENIGMA 3
+
+        if (tela == 9) {
+            al_draw_bitmap(livro3, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
+        }
+
+        // TELA COM GUANABARA NA FASE 1
+        if (tela == 10) {
+            al_draw_bitmap(guanabara_fase1, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                 tela = 2;
                 al_play_sample_instance(inst_clique_tela);
             }
-
         }
-    }
-
-    // TELA COM A FASE 2
-    if (tela == 5) {
-        al_play_sample_instance(inst_somfase2);
-
-        if (evento.keyboard.keycode == ALLEGRO_KEY_X) {
-            tela = 13;
-        }
-        
-        
-        // andando com personagem
-        mover_personagem2(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
-        //velocidade_personagem = 50;
-
-        //DELIMITANDO O PERSONGAME NA TELA
-        delimitar(evento, &pos_x, &pos_y);
-
-
-
-        if (evento.type == ALLEGRO_EVENT_TIMER) {
-            spawn_timer += 1.0 / 60;
-
-            if (spawn_timer >= spawn_interval) {
-                spawn_answer(pergunta_atual.resposta);
-                spawn_timer = 0;
-            }
-
-            update_answers();
-
-            //==================VERIFICANDO A COLISÃO =======================
-            verificar_colisoes(pos_x, pos_y, 64, 64, 80, 40);
-
-
-
-            // ===================  DESENHO ============================
-            //CRIANDO A TELA DA FASE
-            al_draw_bitmap(fase_2, 0, 0, 0);
-
-            //DEFININDO A POSIÇÃO DA SPRITE NA TELA
-            pos_y = 587;
-            //DESENHANDO A SPRITE
-            al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
-
-            // Pergunta no topo
-            al_draw_text(fonte, al_map_rgb(255, 255, 255), 640, 50, ALLEGRO_ALIGN_CENTER, pergunta_atual.texto);
-
-            // TEXTO COM A PONTUAÇÃO
-            char texto_pontos[32];
-            sprintf(texto_pontos, "pontos: %d", pontos);
-            al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontos);
-            // Respostas caindo
-            draw_answers(fonte_fase2);
-
-            if (pontos == 50) {
-                tela = 13;
-                pontos = 0;
-            }
-
-            al_flip_display();
-        }
-
-
-
-
-        
-
-        
-
-        
-
-       
-        
-
-    }
-    ///TELA DE MENSAGEM DE ERRO
-    if (tela == 6) {
-        al_stop_sample_instance(inst_relogio);
-        al_stop_sample_instance(inst_som_fase1);
-        if (!errofase1) {
-            al_play_sample_instance(inst_erro_tela);
-            errofase1 = true;
-        }
-        
-        
-        al_draw_bitmap(mensagem_erro, 0, 0, 0);
-        //al_draw_filled_rectangle(menu.btn3_x1, menu.btn3_y1, menu.btn3_x2, menu.btn3_y2, al_map_rgb(255, 154, 32));
-        //al_draw_filled_rectangle(menu.btn4_x1, menu.btn4_y1, menu.btn4_x2, menu.btn4_y2, al_map_rgb(255, 154, 32));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= menu.btn4_x1 && mouseX <= menu.btn4_x2 && mouseY >= menu.btn4_y1 && mouseY <= menu.btn4_y2) {
-                tela = 1;
-                al_play_sample_instance(inst_clique_tela);
-                al_stop_sample_instance(inst_erro_tela);
-
-            }
-            if (mouseX >= menu.btn3_x1 && mouseX <= menu.btn3_x2 && mouseY >= menu.btn3_y1 && mouseY <= menu.btn3_y2) {
-                tela = 0;
-                al_play_sample_instance(inst_clique_tela);
-                al_stop_sample_instance(inst_erro_tela);
-            }
-        }
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
-
-
-    }
-    else {
-        errofase1 = false;
-    }
-
-    //DESENHANDO TELA DO LIVRO COM ENIGMA 1
-    if (tela == 7) {
-        al_draw_bitmap(livro1, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
-    }
-
-    //DESENHANDO TELA DO LIVRO COM ENIGMA 2;
-    if (tela == 8) {
-        al_draw_bitmap(livro2, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
-    }
-
-    //DESENHANDO TELA DO LIVRO COM ENIGMA 3
-
-    if (tela == 9) {
-        al_draw_bitmap(livro3, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
-    }
-
-    // TELA COM GUANABARA NA FASE 1
-    if (tela == 10) {
-        al_draw_bitmap(guanabara_fase1, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-            tela = 2;
-            al_play_sample_instance(inst_clique_tela);
-        }
-    }
-
-    /*
-    ============== DESENHANDO A TELA DO COMUPTADOR COM A MECANICA ====================
-    */
-
-    if (tela == 11) {
-        /*
-        ======= DESENHANDO A TELA ==========
-        */
-        al_draw_bitmap(tela_senha, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 2;
-        }
-
 
         /*
-        ======= CRIAÇÃO DA MECÂNICA DE RESPOSTAS =============
+        ============== DESENHANDO A TELA DO COMUPTADOR COM A MECANICA ====================
         */
-        if (evento.type == ALLEGRO_EVENT_KEY_CHAR) {
-            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                printf("Resposta final: %s\n", resposta);
-                if (strcmp(resposta, "primeiro") == 0 || strcmp(resposta, "primeiro mes") == 0 || strcmp(resposta, "01") == 0) {
-                    tela = 3;
-                    pos = 0;
-                    resposta[0] = '\0';
+
+        if (tela == 11) {
+            /*
+            ======= DESENHANDO A TELA ==========
+            */
+            al_draw_bitmap(tela_senha, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 2;
+            }
+
+
+            /*
+            ======= CRIAÇÃO DA MECÂNICA DE RESPOSTAS =============
+            */
+            if (evento.type == ALLEGRO_EVENT_KEY_CHAR) {
+                if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                    printf("Resposta final: %s\n", resposta);
+                    if (strcmp(resposta, "primeiro") == 0 || strcmp(resposta, "primeiro mes") == 0 || strcmp(resposta, "01") == 0) {
+                        tela = 3;
+                        pos = 0;
+                        resposta[0] = '\0';
+                        erro = 0;
+                    }
+                    else {
+                        pos = 0;
+                        resposta[0] = '\0';
+                        erro++;
+                    }
+                }
+                else if (evento.keyboard.keycode == ALLEGRO_KEY_BACKSPACE && pos > 0) {
+                    pos--;
+                    resposta[pos] = '\0';
                     erro = 0;
                 }
-                else {
-                    pos = 0;
-                    resposta[0] = '\0';
-                    erro++;
+                else if (evento.keyboard.unichar >= 32 && evento.keyboard.unichar <= 126) {
+                    resposta[pos++] = (char)evento.keyboard.unichar;
+                    resposta[pos] = '\0';
+                    erro = 0;
+
+
                 }
             }
-            else if (evento.keyboard.keycode == ALLEGRO_KEY_BACKSPACE && pos > 0) {
-                pos--;
-                resposta[pos] = '\0';
-                erro = 0;
+
+            //PRINTANDO MENSAGEM DE ERRO
+            if (erro != 0) {
+                al_draw_textf(font, al_map_rgb(255, 0, 0), 851, 507, ALLEGRO_ALIGN_CENTRE, "RESPOSTA INCORRETA");
             }
-            else if (evento.keyboard.unichar >= 32 && evento.keyboard.unichar <= 126) {
-                resposta[pos++] = (char)evento.keyboard.unichar;
-                resposta[pos] = '\0';
-                erro = 0;
-                
-               
-            }
+            //PRINTANDO O TEXTO DIGITADO NA TELA
+            al_draw_textf(font, al_map_rgb(255, 255, 255), 851, 507, ALLEGRO_ALIGN_CENTRE, "%s", resposta);
         }
 
-        //PRINTANDO MENSAGEM DE ERRO
-        if (erro !=0) {
-            al_draw_textf(font, al_map_rgb(255, 0, 0), 851, 507, ALLEGRO_ALIGN_CENTRE, "RESPOSTA INCORRETA");
-        }
-        //PRINTANDO O TEXTO DIGITADO NA TELA
-        al_draw_textf(font, al_map_rgb(255, 255, 255), 851, 507, ALLEGRO_ALIGN_CENTRE, "%s", resposta);
-    }
 
+        // TELA DE FASE COM GUANABARA 2
 
-    // TELA DE FASE COM GUANABARA 2
-
-    if (tela == 12) {
-        al_draw_bitmap(guanabara_fase2,0,0,0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-            tela = 5;
-            al_play_sample_instance(inst_clique_tela);
-        }
-    }
-
-
-    // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE - 2
-
-    if (tela == 13) {
-        al_stop_sample_instance(inst_somfase2);
-        if (!missaoConcluida2) {
-            al_play_sample_instance(inst_missionPassed);
-            missaoConcluida2 = true;
-        }
-        al_clear_to_color(al_map_rgb(0, 125, 125));
-        al_draw_bitmap(fase_concluida, 0, 0, 0);
-        //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) {
-                tela = 14;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) {
-                tela = 0;
+        if (tela == 12) {
+            al_draw_bitmap(guanabara_fase2, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                tela = 5;
                 al_play_sample_instance(inst_clique_tela);
             }
         }
-    }
-    else {
-        missaoConcluida2 = false;
-    }
 
 
-    /*---------------------------------------FASE  3------------------------------------------- */
+        // TELA DE PARABÉNS COM BOTOÕES PARA IR PRA PROXIMA FASE - 2
 
-    char texto_pontuacao[32];
-    sprintf(texto_pontuacao, "Pontos: %d", respostas_fase3);   
-  
-    //TELA COM A FASE 3 DESBLOQUEADA
-    if (tela == 14) {
-        
-        al_stop_sample_instance(inst_missionPassed);
-        al_clear_to_color(al_map_rgb(0,0,144));
-        al_draw_bitmap(tela_fases_3, 0, 0, 0);
-        //al_draw_filled_rectangle(tela_fase3.btn_x1, tela_fase3.btn_y1, tela_fase3.btn_x2, tela_fase3.btn_y2, al_map_rgb(255, 154, 32));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) {
-                tela = 12;
-                al_play_sample_instance(inst_clique_tela);
+        if (tela == 13) {
+            al_stop_sample_instance(inst_somfase2);
+            if (!missaoConcluida2) {
+                al_play_sample_instance(inst_missionPassed);
+                missaoConcluida2 = true;
             }
-            if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) {
-                tela = 0;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) {
-                tela = 2;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            if (mouseX >= tela_fase3.btn_x1 && mouseX <= tela_fase3.btn_x2 && mouseY >= tela_fase3.btn_y1 && mouseY <= tela_fase3.btn_y2) {
-                tela = 15;
-                al_play_sample_instance(inst_clique_tela);
-            }
-
-        }
-
-
-    }
-
-                                                       /*TELA DE FASE COM O GUANABARA 3*/
-    if (tela == 15) {
-        al_stop_sample_instance(inst_erro_tela);
-        al_draw_bitmap(guanabara_fase3, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-            tela = 16;
-            al_play_sample_instance(inst_clique_tela);
-        }
-    }
-
-                                                       /*TELA DE FASE 3*/
-
-    if (tela == 16) {
-        respostas_fase3 = 0;
-        al_clear_to_color(al_map_rgb(148, 0, 144));
-        al_draw_bitmap(fase_3, 0, 0, 0);
-        //al_draw_filled_rectangle(play.btn_x1, play.btn_y1, play.btn_x2, play.btn_y2, al_map_rgb(255, 154, 32));
-        if (evento.mouse.button & 1) {
-            if (mouseX >= play.btn_x1 && mouseX <= play.btn_x2 && mouseY >= play.btn_y1 && mouseY <= play.btn_y2) { tela = 17; }
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
-
-	
-
-    if (tela == 17) {
-        al_draw_bitmap(tela_phishing1, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-    else if (tela == 18) {
-        al_draw_bitmap(tela_phishing2, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-	else if (tela == 19 || tela == 20 || tela == 21 || tela == 22 || tela == 23 || tela == 24) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-    }
-    else if (tela == 31) {
-        al_draw_bitmap(tela_phishing3, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-    else if (tela == 32) {
-        al_draw_bitmap(tela_phishing4, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-    else if (tela == 33) {
-        al_draw_bitmap(tela_phishing5, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-    else if (tela == 34) {
-        al_draw_bitmap(tela_phishing6, 0, 0, 0);
-        al_draw_text(fonte_fase3, al_map_rgb(255, 255, 0), 50, 50, 0, texto_pontuacao);
-
-    }
-    else if (tela == 40) {
-        al_draw_bitmap(erro_fase3, 0, 0, 0);
-
-    }
-
-
-    if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
-        switch (tela) {
-        case 17:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 19;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            else if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 -= 10;
-                tela = 18;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 += 10;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3+=10;
-                al_play_sample_instance(inst_clique_tela2);
-                tela = 18;
-            }
-            break;
-
-        case 18:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 20;
-            }
-            else if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 += 10;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-
-            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3+=10;
-                al_play_sample_instance(inst_clique_tela2);
-                tela = 31;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 -= 10;
-                tela = 31;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            break;
-
-        case 31:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 21;
-                //tela = 21;
-                //continue;
-                al_play_sample_instance(inst_clique_tela2);
-            }
-            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 += 10;
-                respostas_fase3+=10;
-                al_play_sample_instance(inst_clique_tela2);
-                tela = 32;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 -= 10;
-                tela = 32;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            break;
-
-        case 32:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 22;
-                //tela = 22;
-                //continue;
-                al_play_sample_instance(inst_clique_tela2);
-            }
-            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 -= 10;
-                tela = 33;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 += 10;
-                al_play_sample_instance(inst_clique_tela2);
-                tela = 33;
-            }
-            break;
-
-        case 33:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 23;
-                //tela = 23;
-                // al_play_sample_instance(inst_clique_tela2);
-                //continue;
-            }
-            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 -= 10;
-                tela = 34;
-                al_play_sample_instance(inst_clique_tela2);
-                continue;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 += 10;
-                al_play_sample_instance(inst_clique_tela2);
-                tela = 34;
-            }
-            break;
-
-        case 34:
-            if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
-                tela = 24;
-                //tela = 24;
-                // al_play_sample_instance(inst_clique_tela2);
-                //continue;
-            }
-            if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
-                respostas_fase3 += 10;
-                if (respostas_fase3 >= 50) tela = 25;
-                else tela = 40;
-            }
-            else if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                respostas_fase3 -= 10;
-                if (respostas_fase3 >= 50) tela = 25;
-                else tela = 40;
-            }
-            break;
-                al_play_sample_instance(inst_clique_tela2);
-                if (respostas_fase3 >= 50) {
-                    tela = 25; //TELA FINAL DO JOGO
+            al_clear_to_color(al_map_rgb(0, 125, 125));
+            al_draw_bitmap(fase_concluida, 0, 0, 0);
+            //al_draw_filled_rectangle(prox_fase.btn2_x1, prox_fase.btn2_y1, prox_fase.btn2_x2, prox_fase.btn2_y2, al_map_rgb(100, 20, 48));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= prox_fase.btn_x1 && mouseX <= prox_fase.btn_x2 && mouseY >= prox_fase.btn_y1 && mouseY <= prox_fase.btn_y2) {
+                    tela = 14;
+                    al_play_sample_instance(inst_clique_tela);
                 }
-                else {
-                    tela = 40; // TELA DE ERRO FASE 3
+                if (mouseX >= prox_fase.btn2_x1 && mouseX <= prox_fase.btn2_x2 && mouseY >= prox_fase.btn2_y1 && mouseY <= prox_fase.btn2_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
                 }
-                continue;
+            }
+        }
+        else {
+            missaoConcluida2 = false;
+        }
+
+
+        //--------------------------FASE-3-----------------------------//
+        // 
+
+        //TELA COM A FASE 3 DESBLOQUEADA
+        if (tela == 14) {
+
+            al_stop_sample_instance(inst_missionPassed);
+            al_clear_to_color(al_map_rgb(0, 0, 144));
+            al_draw_bitmap(tela_fases_3, 0, 0, 0);
+            //al_draw_filled_rectangle(tela_fase3.btn_x1, tela_fase3.btn_y1, tela_fase3.btn_x2, tela_fase3.btn_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= tela_fase2.btn_x1 && mouseX <= tela_fase2.btn_x2 && mouseY >= tela_fase2.btn_y1 && mouseY <= tela_fase2.btn_y2) {
+                    tela = 12;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= tela_fase.btn_x1 && mouseX <= tela_fase.btn_x2 && mouseY >= tela_fase.btn_y1 && mouseY <= tela_fase.btn_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= tela_fase.btn2_x1 && mouseX <= tela_fase.btn2_x2 && mouseY >= tela_fase.btn2_y1 && mouseY <= tela_fase.btn2_y2) {
+                    tela = 2;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+                if (mouseX >= tela_fase3.btn_x1 && mouseX <= tela_fase3.btn_x2 && mouseY >= tela_fase3.btn_y1 && mouseY <= tela_fase3.btn_y2) {
+                    tela = 15;
+                    al_play_sample_instance(inst_clique_tela);
+                }
 
             }
 
-            if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
-                if (respostas_fase3 >= 50) {
-                    tela = 25; //TELA FINAL DO JOGO
+
+        }
+
+        //TELA DE FASE COM O GUANABARA 3
+        if (tela == 15) {
+            al_stop_sample_instance(inst_erro_tela);
+            al_draw_bitmap(guanabara_fase3, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                tela = 16;
+                al_play_sample_instance(inst_clique_tela);
+            }
+        }
+
+        //TELA COM A FASE 3
+        if (tela == 16) {
+            respostas_fase3 = 0;
+            al_clear_to_color(al_map_rgb(148, 0, 144));
+            al_draw_bitmap(fase_3, 0, 0, 0);
+            //al_draw_filled_rectangle(play.btn_x1, play.btn_y1, play.btn_x2, play.btn_y2, al_map_rgb(255, 154, 32));
+            if (evento.mouse.button & 1) {
+                if (mouseX >= play.btn_x1 && mouseX <= play.btn_x2 && mouseY >= play.btn_y1 && mouseY <= play.btn_y2) { tela = 17; }
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        //TELA MENSAGENS
+
+
+        if (tela == 17) {
+            al_draw_bitmap(tela_phishing1, 0, 0, 0);
+
+            //sprintf(respostas_fase3, "pontos: %d", respostas_fase3);
+            al_draw_text(font, al_map_rgb(255, 255, 0), 50, 50, 0, respostas_fase3);
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    tela = 19;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    tela = 18;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    tela = 18;
+                    continue;
+                }
+            }
+        }
+
+        if (tela == 18) {
+            al_draw_bitmap(tela_phishing2, 0, 0, 0);
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    tela = 20;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    tela = 31;
+                    continue;
+                }
+
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    tela = 31;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+            }
+        }
+
+        if (tela == 31) {
+            al_draw_bitmap(tela_phishing3, 0, 0, 0);
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    //tela = 21;
+                    //continue;
                     al_play_sample_instance(inst_clique_tela2);
                 }
-                else {
-                    tela = 40; // TELA DE ERRO FASE 3
+
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    tela = 32;
+                    continue;
+                }
+
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    tela = 32;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+            }
+        }
+
+        if (tela == 32) {
+            al_draw_bitmap(tela_phishing4, 0, 0, 0);
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    //tela = 22;
+                    //continue;
                     al_play_sample_instance(inst_clique_tela2);
                 }
-                continue;
 
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    tela = 33;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    tela = 33;
+                    continue;
+                }
+            }
+
+        }
+
+        if (tela == 33) {
+            al_draw_bitmap(tela_phishing5, 0, 0, 0);
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    //tela = 23;
+                    // al_play_sample_instance(inst_clique_tela2);
+                    //continue;
+                }
+
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    tela = 34;
+                    al_play_sample_instance(inst_clique_tela2);
+                    continue;
+                }
+
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    tela = 34;
+                    continue;
+
+
+                }
             }
         }
-    }
 
-    if (tela == 19) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 17;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
+        if (tela == 34) {
+            al_draw_bitmap(tela_phishing6, 0, 0, 0);
 
-    if (tela == 20) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 18;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
-    if (tela == 21) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 31;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= peixe.btn_x1 && mouseX <= peixe.btn_x2 && mouseY >= peixe.btn_y1 && mouseY <= peixe.btn_y2) {
+                    //tela = 24;
+                    // al_play_sample_instance(inst_clique_tela2);
+                    //continue;
+                }
 
-    if (tela == 22) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 32;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
+                if (mouseX >= phishing.btn_x1 && mouseX <= phishing.btn_x2 && mouseY >= phishing.btn_y1 && mouseY <= phishing.btn_y2) {
+                    respostas_fase3 += 10;
+                    al_play_sample_instance(inst_clique_tela2);
+                    if (respostas_fase3 >= 50) {
+                        tela = 25; //TELA FINAL DO JOGO
+                    }
+                    else {
+                        tela = 40; // TELA DE ERRO FASE 3
+                    }
+                    continue;
 
-    if (tela == 23) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 33;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
+                }
 
-    if (tela == 24) {
-        al_draw_bitmap(phishing_consulta, 0, 0, 0);
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            tela = 34;
-            al_play_sample_instance(inst_clique_tela2);
-        }
-    }
+                if (mouseX >= legitimo.btn_x1 && mouseX <= legitimo.btn_x2 && mouseY >= legitimo.btn_y1 && mouseY <= legitimo.btn_y2) {
+                    if (respostas_fase3 >= 50) {
+                        tela = 25; //TELA FINAL DO JOGO
+                        al_play_sample_instance(inst_clique_tela2);
+                    }
+                    else {
+                        tela = 40; // TELA DE ERRO FASE 3
+                        al_play_sample_instance(inst_clique_tela2);
+                    }
+                    continue;
 
-    if (tela == 40) {
-        al_draw_bitmap(erro_fase3, 0, 0, 0);
-        if (!errofase3) {
-            al_play_sample_instance(inst_erro_tela);
-            errofase3 = true;
-        }
-
-        //al_draw_filled_rectangle(exit.btn_x1, exit.btn_y1, exit.btn_x2, exit.btn_y2, al_map_rgb(255, 154, 32));
-        //al_draw_filled_rectangle(try.btn_x1, try.btn_y1, try.btn_x2, try.btn_y2, al_map_rgb(255, 0, 0));
-
-        case 40:
-            if (mouseX >= exit.btn_x1 && mouseX <= exit.btn_x2 && mouseY >= exit.btn_y1 && mouseY <= exit.btn_y2) {
-                jogando = false;
-                tela = 0;
-                al_play_sample_instance(inst_clique_tela);
-
+                }
             }
-            else if (mouseX >= try.btn_x1 && mouseX <= try.btn_x2 && mouseY >= try.btn_y1 && mouseY <= try.btn_y2) {
-                tela = 15;
-                al_play_sample_instance(inst_clique_tela);
-            }
-            break;
-
-        default:
-            break;
-        } 
-    }
-
-    if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
-        if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-            if (tela == 19) tela = 17;
-            else if (tela == 20) tela = 18;
-            else if (tela == 21) tela = 31;
-            else if (tela == 22) tela = 32;
-            else if (tela == 23) tela = 33;
-            else if (tela == 24) tela = 34;
         }
+
+        if (tela == 19) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 17;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        if (tela == 20) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 18;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+        if (tela == 21) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 31;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        if (tela == 22) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 32;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        if (tela == 23) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 33;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        if (tela == 24) {
+            al_draw_bitmap(phishing_consulta, 0, 0, 0);
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                tela = 34;
+                al_play_sample_instance(inst_clique_tela2);
+            }
+        }
+
+        if (tela == 40) {
+            al_draw_bitmap(erro_fase3, 0, 0, 0);
+            if (!errofase3) {
+                al_play_sample_instance(inst_erro_tela);
+                errofase3 = true;
+            }
+
+            //al_draw_filled_rectangle(exit.btn_x1, exit.btn_y1, exit.btn_x2, exit.btn_y2, al_map_rgb(255, 154, 32));
+            //al_draw_filled_rectangle(try.btn_x1, try.btn_y1, try.btn_x2, try.btn_y2, al_map_rgb(255, 0, 0));
+
+            if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && (evento.mouse.button & 1)) {
+                if (mouseX >= exit.btn_x1 && mouseX <= exit.btn_x2 && mouseY >= exit.btn_y1 && mouseY <= exit.btn_y2) {
+                    tela = 0;
+                    al_play_sample_instance(inst_clique_tela);
+
+                }
+                else if (mouseX >= try.btn_x1 && mouseX <= try.btn_x2 && mouseY >= try.btn_y1 && mouseY <= try.btn_y2) {
+                    tela = 15;
+                    al_play_sample_instance(inst_clique_tela);
+                }
+            }
+
+        }
+        else {
+            errofase3 = false;
+        }
+
+
+
+        //--------------TELA FINAL-------------------//
+
+
+        if (tela == 25) {
+            al_draw_bitmap(tela_final, 0, 0, 0);
+            al_play_sample_instance(inst_concluido);
+
+        }
+
+
+
+
+
+        al_flip_display();
+
     }
-    else {
-        errofase3 = false;
-    }
+
+    // destruindo eventos
+    al_destroy_font(font);
+    al_destroy_font(fonte_fase2);
+    al_destroy_display(janela);
+    al_destroy_event_queue(fila_eventos);
+    al_destroy_bitmap(tela_inicial);
+    al_destroy_bitmap(tela_fases);
+    al_destroy_bitmap(tela_final);
+    al_destroy_bitmap(fase_1);
+    al_destroy_bitmap(tela_fases_2);
+    al_destroy_bitmap(tela_fases_3);
+    al_destroy_bitmap(fase_concluida);
+    al_destroy_bitmap(mensagem_erro);
+    al_destroy_bitmap(sprite);
+    al_destroy_bitmap(livro1);
+    al_destroy_bitmap(livro2);
+    al_destroy_bitmap(livro3);
+    al_destroy_bitmap(guanabara_fase1);
+    al_destroy_bitmap(tela_senha);
+    al_destroy_bitmap(guanabara_fase2);
+    al_destroy_bitmap(guanabara_fase3);
+    al_destroy_bitmap(fase_2);
+    al_destroy_bitmap(fase_3);
+    al_destroy_bitmap(tela_phishing1);
+    al_destroy_bitmap(erro_fase3);
+
+    al_destroy_sample(acerto);
+    al_destroy_sample(erro_tela);
+    al_destroy_sample(somfase2);
+    al_destroy_sample(clique_tela);
+    al_destroy_sample(clique_tela2);
+    al_destroy_sample(relogio);
+    al_destroy_sample(som_fase1);
+    al_destroy_sample(missionPassed);
+    al_destroy_sample(concluido);
 
 
-    
-                                            /*------------------ TELA FINAL ------------------ */
-
-    
-    if (tela == 25) {
-        al_draw_bitmap(tela_final, 0, 0, 0); 
-        al_play_sample_instance(inst_concluido);
-
-     }
-
-
-
-
-
-    al_flip_display();
-
-}
-
-// destruindo eventos
-al_destroy_font(font);
-al_destroy_font(fonte_fase2);
-al_destroy_display(janela);
-al_destroy_event_queue(fila_eventos);
-al_destroy_bitmap(tela_inicial);
-al_destroy_bitmap(tela_fases);
-al_destroy_bitmap(tela_final);
-al_destroy_bitmap(fase_1);
-al_destroy_bitmap(tela_fases_2);
-al_destroy_bitmap(tela_fases_3);
-al_destroy_bitmap(fase_concluida);
-al_destroy_bitmap(mensagem_erro);
-al_destroy_bitmap(sprite);
-al_destroy_bitmap(livro1);
-al_destroy_bitmap(livro2);
-al_destroy_bitmap(livro3);
-al_destroy_bitmap(guanabara_fase1);
-al_destroy_bitmap(tela_senha);
-al_destroy_bitmap(guanabara_fase2);
-al_destroy_bitmap(guanabara_fase3);
-al_destroy_bitmap(fase_2);
-al_destroy_bitmap(fase_3);
-al_destroy_bitmap(tela_phishing1);
-al_destroy_bitmap(erro_fase3);
-
-al_destroy_sample(acerto);
-al_destroy_sample(erro_tela);
-al_destroy_sample(somfase2);
-al_destroy_sample(clique_tela);
-al_destroy_sample(clique_tela2);
-al_destroy_sample(relogio);
-al_destroy_sample(som_fase1);
-al_destroy_sample(missionPassed);
-al_destroy_sample(concluido);
-
-
-al_destroy_sample_instance(inst_trilha_sonora);
-al_destroy_sample_instance(inst_erro_tela);
-al_destroy_sample_instance(inst_acerto);
-al_destroy_sample_instance(inst_somfase2);
-al_destroy_sample_instance(inst_clique_tela);
-al_destroy_sample_instance(inst_clique_tela2);
-al_destroy_sample_instance(inst_relogio);
-al_destroy_sample_instance(inst_som_fase1);
-al_destroy_sample_instance(inst_missionPassed);
-al_destroy_sample_instance(inst_concluido);
-return 0;
+    al_destroy_sample_instance(inst_trilha_sonora);
+    al_destroy_sample_instance(inst_erro_tela);
+    al_destroy_sample_instance(inst_acerto);
+    al_destroy_sample_instance(inst_somfase2);
+    al_destroy_sample_instance(inst_clique_tela);
+    al_destroy_sample_instance(inst_clique_tela2);
+    al_destroy_sample_instance(inst_relogio);
+    al_destroy_sample_instance(inst_som_fase1);
+    al_destroy_sample_instance(inst_missionPassed);
+    al_destroy_sample_instance(inst_concluido);
+    return 0;
 }
