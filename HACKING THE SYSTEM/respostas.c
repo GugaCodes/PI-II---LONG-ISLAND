@@ -18,7 +18,7 @@ void spawn_answer(float correct_value) {
         if (!answers[i].active) {   // acha uma vaga
             answers[i].x = rand() % (1280 - 100);
             answers[i].y = 0;
-            answers[i].speed = 2;   // velocidade constante como antes
+            answers[i].speed = 3;   // velocidade constante
             answers[i].active = true;
 
             // 1 em 5 chance de ser a resposta correta
