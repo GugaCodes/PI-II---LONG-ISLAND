@@ -99,7 +99,7 @@ int main() {
     int current_frame_y = 0;
 
     // VARIAVEIS DO MOUSE
-    float mouseX, mouseY;
+    float mouseX = 0.f, mouseY = 0.f;
 
     //================= COLISÃO DO PERSONAGEM NA FASE 2 ===============================
 
@@ -169,6 +169,101 @@ int main() {
     tela_fase.btn2_x2 = 460;
     tela_fase.btn2_y1 = 180;
     tela_fase.btn2_y2 = 625;
+
+
+	//---------------------COLISÕES FASE 1--------------------------//
+
+    struct botao mesa;
+    mesa.btn_x1 = 438;
+    mesa.btn_x2 = 510;
+    mesa.btn_y1 = 240;
+    mesa.btn_y2 = 300;
+
+    struct botao mesa2;
+    mesa2.btn_x1 = 728;
+    mesa2.btn_x2 = 790;
+    mesa2.btn_y1 = 243;
+    mesa2.btn_y2 = 300;
+
+    struct botao bau;
+    bau.btn_x1 = 585;
+    bau.btn_x2 = 650;
+    bau.btn_y1 = 322;
+    bau.btn_y2 = 350;
+
+    struct botao quadro;
+    quadro.btn_x1 = 1065;
+    quadro.btn_x2 = 1120;
+    quadro.btn_y1 = 322;
+    quadro.btn_y2 = 350;
+
+    struct botao pistas;
+    pistas.btn_x1 = 140;
+    pistas.btn_x2 = 180;
+    pistas.btn_y1 = 245;
+    pistas.btn_y2 = 265;
+
+    struct botao mesapc;
+    mesapc.btn_x1 = 150;
+    mesapc.btn_x2 = 280;
+    mesapc.btn_y1 = 390;
+    mesapc.btn_y2 = 420;
+
+    struct botao estantes;
+    estantes.btn_x1 = 115;
+    estantes.btn_x2 = 325;
+    estantes.btn_y1 = 518;
+    estantes.btn_y2 = 560;
+
+    struct botao pc;
+    pc.btn_x1 = 1020;
+    pc.btn_x2 = 1110;
+    pc.btn_y1 = 220;
+    pc.btn_y2 = 240;
+
+    struct botao placa;
+    placa.btn_x1 = 1115;
+    placa.btn_x2 = 1130;
+    placa.btn_y1 = 428;
+    placa.btn_y2 = 480;
+
+    struct botao estanteE;
+    estanteE.btn_x1 = 10;
+    estanteE.btn_x2 = 90;
+    estanteE.btn_y1 = 520;
+    estanteE.btn_y2 = 590;
+
+    struct botao mesa3;
+    mesa3.btn_x1 = 358;
+    mesa3.btn_x2 = 510;
+    mesa3.btn_y1 = 530;
+    mesa3.btn_y2 = 600;
+
+    struct botao estantes2;
+    estantes2.btn_x1 = 850;
+    estantes2.btn_x2 = 1130;
+    estantes2.btn_y1 = 520;
+    estantes2.btn_y2 = 580;
+
+    struct botao pcfora;
+    pcfora.btn_x1 = 750;
+    pcfora.btn_x2 = 812;
+    pcfora.btn_y1 = 562;
+    pcfora.btn_y2 = 630;
+
+    struct botao sofa;
+    sofa.btn_x1 = 1200;
+    sofa.btn_x2 = 1270;
+    sofa.btn_y1 = 500;
+    sofa.btn_y2 = 630;
+
+
+    struct botao pc2;
+    pc2.btn_x1 = 176;
+    pc2.btn_x2 = 200;
+    pc2.btn_y1 = 363;
+    pc2.btn_y2 = 390;
+
 
     //CRIANDO STRUCT PARA IR PARA FASE 2
 
@@ -371,6 +466,28 @@ int main() {
     al_register_event_source(fila_eventos, al_get_mouse_event_source());
     al_start_timer(timer);
     al_start_timer(timer_fase2);
+    colisao_init();
+    colisao_clear();
+    colisao_add(mesa.btn_x1, mesa.btn_y1, mesa.btn_x2, mesa.btn_y2);
+    colisao_add(mesa2.btn_x1, mesa2.btn_y1, mesa2.btn_x2, mesa2.btn_y2);
+    colisao_add(bau.btn_x1, bau.btn_y1, bau.btn_x2, bau.btn_y2);
+    colisao_add(quadro.btn_x1, quadro.btn_y1, quadro.btn_x2, quadro.btn_y2);
+    colisao_add(pistas.btn_x1, pistas.btn_y1, pistas.btn_x2, pistas.btn_y2);
+    colisao_add(mesapc.btn_x1, mesapc.btn_y1, mesapc.btn_x2, mesapc.btn_y2);
+    colisao_add(estantes.btn_x1, estantes.btn_y1, estantes.btn_x2, estantes.btn_y2);
+    colisao_add(pc.btn_x1, pc.btn_y1, pc.btn_x2, pc.btn_y2);
+    colisao_add(placa.btn_x1, placa.btn_y1, placa.btn_x2, placa.btn_y2);
+    colisao_add(estanteE.btn_x1, estanteE.btn_y1, estanteE.btn_x2, estanteE.btn_y2);
+    colisao_add(mesa3.btn_x1, mesa3.btn_y1, mesa3.btn_x2, mesa3.btn_y2);
+    colisao_add(estantes2.btn_x1, estantes2.btn_y1, estantes2.btn_x2, estantes2.btn_y2);
+    colisao_add(pcfora.btn_x1, pcfora.btn_y1, pcfora.btn_x2, pcfora.btn_y2);
+    colisao_add(sofa.btn_x1, sofa.btn_y1, sofa.btn_x2, sofa.btn_y2);
+    colisao_add(pc2.btn_x1, pc2.btn_y1, pc2.btn_x2, pc2.btn_y2);
+
+
+
+
+
     //-------------------------------------------------------------------------
     //=================CRIAÇÃO DE DISPOSITIVOS=====================
     trilha_sonora = al_load_sample("som_menu_principal.mp3");
@@ -515,11 +632,23 @@ int main() {
             //al_draw_filled_rectangle(fase1.livro1_x1, fase1.livro1_y1, fase1.livro1_x2, fase1.livro1_y2, al_map_rgb(248, 320, 124));
             al_draw_bitmap_region(sprite, 75 * (int)frame, current_frame_y, 75, 77, pos_x, pos_y, 0);
 
-            // andando com personagem
+
+            float prev_x = pos_x;
+            float prev_y = pos_y;
+
+            // aplica movimento (leva pos_x/pos_y para a nova posição)
             mover_personagem(evento, &pos_x, &pos_y, &frame, velocidade_personagem, &current_frame_y);
 
-            //delimitando bolinha ao tamanho da tela
+            // limita posição à tela
             delimitar(evento, &pos_x, &pos_y);
+
+            // testa colisão com obstáculos registrados
+            // se colidir, revertendo para posição anterior
+            if (colisao_test(pos_x, pos_y, (int)largura_personagem, (int)altura_personagem)) {
+                pos_x = prev_x;
+                pos_y = prev_y;
+                // opcional: printf("DEBUG: colisão, rollback para %.1f, %.1f\n", pos_x, pos_y);
+            }
 
             /*
             ============ SISTEMA DE TEMPO ================
@@ -562,6 +691,26 @@ int main() {
                 tela = 11;
 
             }
+
+            /*
+			   ---- Delimitação das Colisões dos Objetos da Fase 1 ----
+            al_draw_filled_rectangle(mesa.btn_x1, mesa.btn_y1, mesa.btn_x2, mesa.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(mesa2.btn_x1, mesa2.btn_y1, mesa2.btn_x2, mesa2.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(bau.btn_x1, bau.btn_y1, bau.btn_x2, bau.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(quadro.btn_x1, quadro.btn_y1, quadro.btn_x2, quadro.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(pistas.btn_x1, pistas.btn_y1, pistas.btn_x2, pistas.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(mesapc.btn_x1, mesapc.btn_y1, mesapc.btn_x2, mesapc.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(estantes.btn_x1, estantes.btn_y1, estantes.btn_x2, estantes.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(pc.btn_x1, pc.btn_y1, pc.btn_x2, pc.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(placa.btn_x1, placa.btn_y1, placa.btn_x2, placa.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(estanteE.btn_x1, estanteE.btn_y1, estanteE.btn_x2, estanteE.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(mesa3.btn_x1, mesa3.btn_y1, mesa3.btn_x2, mesa3.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(estantes2.btn_x1, estantes2.btn_y1, estantes2.btn_x2, estantes2.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(pcfora.btn_x1, pcfora.btn_y1, pcfora.btn_x2, pcfora.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(sofa.btn_x1, sofa.btn_y1, sofa.btn_x2, sofa.btn_y2, al_map_rgb(248, 320, 124));
+            al_draw_filled_rectangle(pc2.btn_x1, pc2.btn_y1, pc2.btn_x2, pc2.btn_y2, al_map_rgb(248, 320, 124));
+            */
+            
 
             // SE CHEGAR NO ESPAÇO DELIMITADO AO TECLAR E, APARECE TELA DE ERRO
             //al_draw_filled_rectangle(fase1.erro_x1, fase1.erro_y1, fase1.erro_x2, fase1.erro_y2, al_map_rgb(100, 320, 124));
