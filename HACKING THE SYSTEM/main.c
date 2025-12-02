@@ -847,7 +847,7 @@ int main() {
 
         case 40:
             if (mouseX >= exit.btn_x1 && mouseX <= exit.btn_x2 && mouseY >= exit.btn_y1 && mouseY <= exit.btn_y2) {
-                tela = 0;
+                jogando = false;
             }
             else if (mouseX >= try.btn_x1 && mouseX <= try.btn_x2 && mouseY >= try.btn_y1 && mouseY <= try.btn_y2) {
                 tela = 15;
