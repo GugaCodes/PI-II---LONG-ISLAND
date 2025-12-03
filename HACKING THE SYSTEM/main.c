@@ -431,7 +431,7 @@ int main() {
     ALLEGRO_FONT* fonte_fase2 = al_load_font("./fonte.ttf", 20, 0); // FONTE DA FASE 2
     ALLEGRO_FONT* fonte = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 2
     ALLEGRO_FONT* fonte_fase3 = al_load_font("./fonte.ttf", 30, 0); // pergunta da fase 3
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 10.0); // definindo "FPS"
+    ALLEGRO_TIMER* timer = al_create_timer(1.0); // definindo "FPS"  AQUI QUE MUDA VELOCIDADE DO TIMER /10 PARA FICAR IGUAL ANTES
     ALLEGRO_TIMER* timer_fase2 = al_create_timer(1.0 / 60.0); // 60fps
     ALLEGRO_BITMAP* tela_inicial = al_load_bitmap("./TELA_INICIAL.png");
     ALLEGRO_BITMAP* tela_fases = al_load_bitmap("TELA_FASES.png");
@@ -899,14 +899,14 @@ int main() {
 
         //DESENHANDO TELA DO LIVRO COM ENIGMA 1
         if (tela == 7) {
-            tempo_resetado_fase2 = false;
+            //tempo_resetado_fase2 = false;
             al_draw_bitmap(livro1, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
 
         //DESENHANDO TELA DO LIVRO COM ENIGMA 2;
         if (tela == 8) {
-            tempo_resetado_fase2 = false;
+            //tempo_resetado_fase2 = false;
             al_draw_bitmap(livro2, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
@@ -914,7 +914,7 @@ int main() {
         //DESENHANDO TELA DO LIVRO COM ENIGMA 3
 
         if (tela == 9) {
-            tempo_resetado_fase2 = false;
+            //tempo_resetado_fase2 = false;
             al_draw_bitmap(livro3, 0, 0, 0);
             if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) { tela = 2; }
         }
