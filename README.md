@@ -1,3 +1,5 @@
+HACKING THE SYSTEM
+
 🧠 Jogo Educacional de Matemática — Projeto Integrador
 
 Este projeto consiste no desenvolvimento de um jogo 2D educacional focado no aprendizado de matemática. O objetivo é tornar o estudo mais leve, dinâmico e divertido através de desafios interativos que estimulam o raciocínio lógico do jogador.
